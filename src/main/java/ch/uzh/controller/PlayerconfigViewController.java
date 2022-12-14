@@ -2,9 +2,13 @@ package ch.uzh.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import ch.uzh.App;
+import ch.uzh.controller.components.PlayerconfigController;
+import ch.uzh.model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +20,7 @@ public class PlayerconfigViewController implements Initializable{
 
     @FXML
     private VBox vboxPlayerConfigList;
+    private List<PlayerconfigController> playerInputControllers = new ArrayList<PlayerconfigController>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -27,12 +32,17 @@ public class PlayerconfigViewController implements Initializable{
             e.printStackTrace();
             child = new Label("Failed to load component");
         }
+        playerInputControllers.add(loader.getController());
         vboxPlayerConfigList.getChildren().add(child);
         
     }
 
     @FXML
     public void goNext() {
+        for (PlayerconfigController playerconfig : playerInputControllers) {
+            playerconfig.validatePlayer();
+            Player player = playerconfig.getPlayer();
+        }
         System.out.println("next");
     }
 

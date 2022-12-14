@@ -13,7 +13,7 @@
             <Insets left="16.0" />
             </padding>
         </Label>
-        <ComboBox fx:id="CmbColorSelectionPlayer1" prefWidth="150.0" />
-        <TextField fx:id="TxtNamePlayer1" />
+        <ComboBox fx:id="cmbColorSelection" prefWidth="150.0" />
+        <TextField fx:id="txtName" />
     </children>
 </HBox>

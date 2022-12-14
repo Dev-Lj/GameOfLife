@@ -1,10 +1,5 @@
 package ch.uzh.model;
 
-enum Color {
-    Red,
-    Blue
-}
-
 public class Player {
     private Color color;
     private String name;
@@ -15,6 +10,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     @Override
