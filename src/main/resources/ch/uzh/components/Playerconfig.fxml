@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.uzh.controller.components.PlayerconfigController">
+    <children>
+        <Label text="Player 1:">
+            <padding>
+            <Insets left="16.0" />
+            </padding>
+        </Label>
+        <ComboBox fx:id="CmbColorSelectionPlayer1" prefWidth="150.0" />
+        <TextField fx:id="TxtNamePlayer1" />
+    </children>
+</HBox>
