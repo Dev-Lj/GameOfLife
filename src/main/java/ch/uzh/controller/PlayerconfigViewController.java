@@ -9,10 +9,13 @@ import java.util.ResourceBundle;
 import ch.uzh.App;
 import ch.uzh.controller.components.PlayerconfigController;
 import ch.uzh.model.Player;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -38,12 +41,19 @@ public class PlayerconfigViewController implements Initializable{
     }
 
     @FXML
-    public void goNext() {
+    public void goNext(ActionEvent event) {
         for (PlayerconfigController playerconfig : playerInputControllers) {
             playerconfig.validatePlayer();
             Player player = playerconfig.getPlayer();
         }
-        System.out.println("next");
+        try {
+            Parent root = App.loadFXML("components/Grid");
+            Scene rootScene = ((Node)event.getSource()).getScene();
+            rootScene.setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     // TODO research onChange update handlders for Text & Combobox
