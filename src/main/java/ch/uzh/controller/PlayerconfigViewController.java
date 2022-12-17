@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import ch.uzh.App;
 import ch.uzh.controller.components.PlayerconfigController;
-import ch.uzh.model.Player;
+import ch.uzh.model.lobby.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

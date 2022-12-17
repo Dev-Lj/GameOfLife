@@ -3,8 +3,8 @@ package ch.uzh.controller.components;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import ch.uzh.model.Grid;
-import ch.uzh.model.GridObserver;
+import ch.uzh.model.grid.Grid;
+import ch.uzh.model.grid.GridObserver;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

@@ -3,8 +3,8 @@ package ch.uzh.controller.components;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import ch.uzh.model.Color;
-import ch.uzh.model.Player;
+import ch.uzh.model.lobby.Color;
+import ch.uzh.model.lobby.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;

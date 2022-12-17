@@ -1,4 +1,4 @@
-package ch.uzh.model;
+package ch.uzh.model.lobby;
 
 public class Player {
     private Color color;
