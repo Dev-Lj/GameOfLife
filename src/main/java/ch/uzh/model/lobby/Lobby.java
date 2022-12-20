@@ -7,10 +7,10 @@ public class Lobby {
     private ArrayList<Player> players = new ArrayList<Player>();
     private int playerCounter = 0;
     public static final int NR_PLAYERS = 2;
-    private String errors;
 
-    public Lobby() {
-
+    public Lobby(ArrayList<Player> players) {
+        this.players = players;
+        validPlayer();
     }
 
     public Player getCurrentPlayer() {
@@ -27,25 +27,17 @@ public class Lobby {
         players.add(player);
     }
 
-    public String getErrors() {
-        return errors;
-    }
-
-    public boolean validPlayer() {
+    public void validPlayer() {
         for (Player player : players) {
             if (player.validPlayer() == false) {
-                errors = "Color or name is not valid";
+                System.out.println(player.validPlayer());
+                throw new IllegalArgumentException("Plz check if the players have color and name select/ filled out");
             }
         }
         if (players.get(0).getName().equals(players.get(1).getName())
                 || players.get(0).getColor().equals(players.get(1).getColor()))
-            errors = "Player names or colors are not unique or null";
+            throw new IllegalArgumentException("Name or collor does not differ, plz choose different names and colors");
 
-        System.out.println(errors);
-        if (errors != null && !errors.isEmpty())
-            return false;
-        else
-            return true;
     }
 
 }
