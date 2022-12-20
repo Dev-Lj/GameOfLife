@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class PlayerconfigViewController implements Initializable {
+    Lobby lobby;
 
     @FXML
     private Label errorText;
@@ -37,25 +38,6 @@ public class PlayerconfigViewController implements Initializable {
         }
     }
 
-    /*
-     * private boolean userCompleted() {
-     * 
-     * lobby = new Lobby();
-     * for (PlayerconfigController playerconfig : playerInputControllers) {
-     * playerconfig.updatePlayer();
-     * lobby.setPlayer(playerconfig.getPlayer());
-     * }
-     * if (lobby.validPlayer() == false) {
-     * lobby.getErrors();
-     * errorText.setText(lobby.getErrors());
-     * return false;
-     * } else {
-     * errorText.setText("");
-     * return true;
-     * }
-     * }
-     */
-
     @FXML
     private void updatePlayers() {
         for (PlayerconfigController playerconfig : playerInputControllers) {
@@ -67,7 +49,7 @@ public class PlayerconfigViewController implements Initializable {
     public void goNext(ActionEvent event) {
         updatePlayers();
         try {
-            Lobby lobby = new Lobby(players);
+            lobby = new Lobby(players);
             try {
                 Parent root = App.loadFXML("components/Grid");
                 Scene rootScene = ((Node) event.getSource()).getScene();
@@ -81,5 +63,10 @@ public class PlayerconfigViewController implements Initializable {
         }
     }
 
+    public Lobby getLobby() {
+        return lobby;
+    }
+
     // TODO research onChange update handlders for Text & Combobox
+
 }
