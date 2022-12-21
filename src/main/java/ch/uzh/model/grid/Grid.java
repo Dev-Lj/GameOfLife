@@ -26,12 +26,75 @@ public class Grid {
         grid[x][y] = null;
     }
 
+    /**
+     * @pre coordinates not out of bounds of grid
+     * */
     public void plantCell(int x, int y, Player currentPlayer) throws InvalidCellException {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
         if(grid[x][y] == currentPlayer) {
             throw new InvalidCellException();
         }
         grid[x][y] = currentPlayer;
+    }
+
+    /**
+     * @pre coordinates not out of bounds of grid
+     * */
+    private boolean isAlive(int x, int y) {
+        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        return grid[x][y] != null;
+    }
+
+    /**
+     * @pre coordinates not out of bounds of grid
+     * */
+    private int getAliveNeighbours(int x, int y) {
+        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        int aliveNeighbours = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if(x + i >= 0 && x + i < GRID_SIZE && y + j >= 0 && y + j < GRID_SIZE && !(i == 0 && j == 0) && isAlive(x + i, y + j)) {
+                    aliveNeighbours++;
+                }
+            }
+        }
+        return aliveNeighbours;
+    }
+
+    /**
+     * @pre coordinates not out of bounds of grid
+     * */
+    private Player getMostNeighbourPlayer(int x, int y) {
+        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        return null;
+    }
+
+    private Player[][] cloneGrid() {
+        Player[][] newGrid = grid.clone();
+        for(int row = 0; row < GRID_SIZE; row++) {
+            newGrid[row] = grid[row].clone();
+        }
+        return newGrid;
+    }
+
+    public void computeGeneration() {
+        Player[][] newGrid = cloneGrid();
+        for(int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                if (isAlive(row, col)) {
+
+                } else {
+
+                }
+            }
+        }
+        // loop over all cells
+            // if cell is alive
+                // if 2 or 3 neighbours --> don't change anything
+                // else --> make cell dead
+            // if cell is dead
+                // if 3 neightbours --> make alive (color of most neighbours)
+                // else --> don't change anything
     }
 
     public void attachObserver(GridObserver observer) {
@@ -42,10 +105,6 @@ public class Grid {
         for (GridObserver gridObserver : observers) {
             gridObserver.notifyUpdate();
         }
-    }
-
-    public void computeGeneration() {
-        // TODO: Implement
     }
 
     // JUST FOR DEBUGGING PURPOSES
@@ -73,9 +132,13 @@ public class Grid {
 
         g.plantCell(0, 0, p1);
         g.plantCell(0, 1, p1);
+        g.plantCell(0, 2, p2);
+        g.plantCell(2, 1, p2);
         g.plantCell(4, 1, p2);
-        g.killCell(0, 0, p2);
 
         g.printGrid();
+        System.out.println(g.getAliveNeighbours(4,4));
+        g.computeGeneration();
+
     }
 }
