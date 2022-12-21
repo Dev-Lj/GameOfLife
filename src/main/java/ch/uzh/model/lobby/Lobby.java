@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class Lobby {
     private Player currentPlayer;
     private ArrayList<Player> players = new ArrayList<Player>();
-    private int playerCounter = 0;
+    private int playerCounter = 1;
 
     public Lobby(ArrayList<Player> players) {
         this.players = players;
+        nextPlayer();
         validPlayer();
     }
 
@@ -16,14 +17,10 @@ public class Lobby {
         return currentPlayer;
     }
 
-    public Player nextPlayer() {
+    public void nextPlayer() {
         int nextI = (playerCounter + 1) % PlayerConfig.NR_PLAYERS;
-        this.playerCounter = nextI + 1;
-        return this.currentPlayer;
-    }
-
-    public void setPlayer(Player player) {
-        players.add(player);
+        this.playerCounter = nextI;
+        this.currentPlayer = players.get(this.playerCounter);
     }
 
     public void validPlayer() {
