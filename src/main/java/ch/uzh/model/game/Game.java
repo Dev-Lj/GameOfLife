@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.uzh.model.grid.Grid;
+import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.Player;
 
@@ -22,7 +23,7 @@ enum PlayerMove {
 
 @FunctionalInterface
 interface PlayerMoveFunction {
-    public void execute(Grid grid, int x, int y, Player currentPlayer);
+    public void execute(Grid grid, int x, int y, Player currentPlayer) throws InvalidCellException;
 }
 
 public class Game {
@@ -46,7 +47,7 @@ public class Game {
         notifyObserversNextPlayerTurn();
     }
 
-    public void playerCellSelection(int x, int y) {
+    public void playerCellSelection(int x, int y) throws InvalidCellException {
         nextMove.function.execute(grid, x, y, lobby.getCurrentPlayer());
         calculateNextMove();
     }
