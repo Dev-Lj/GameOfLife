@@ -15,6 +15,15 @@ public class LobbyTest {
         return players;
     }
 
+    public ArrayList<Player> createCorrectList() {
+        ArrayList<Player> players = createPlayerlist();
+        players.get(0).setName("pl1");
+        players.get(1).setName("pl2");
+        players.get(0).setColor("green");
+        players.get(1).setColor("red");
+        return players;
+    }
+
     @Test
     public void testLobbyPlayerNull() {
         IllegalArgumentException exception = assertThrows(
@@ -59,13 +68,35 @@ public class LobbyTest {
 
     @Test
     public void testLobyCreationCorrect() {
-        ArrayList<Player> players = createPlayerlist();
-        players.get(0).setName("green");
-        players.get(1).setName("red");
-        players.get(0).setColor("green");
-        players.get(1).setColor("red");
+        ArrayList<Player> players = createCorrectList();
         Lobby lob = new Lobby(players);
         assertEquals(Lobby.class, lob.getClass());
+    }
+
+    @Test
+    public void testCurrentPlayer() {
+        ArrayList<Player> players = createCorrectList();
+        Lobby lob = new Lobby(players);
+        assertEquals("pl1", lob.getCurrentPlayer().getName());
+    }
+
+    @Test
+    public void testCurrentNextPlayer() {
+        ArrayList<Player> players = createCorrectList();
+        Lobby lob = new Lobby(players);
+        lob.nextPlayer();
+        assertEquals("pl2", lob.getCurrentPlayer().getName());
+    }
+
+    @Test
+    public void testCurrentNextPlayer4() {
+        ArrayList<Player> players = createCorrectList();
+        Lobby lob = new Lobby(players);
+        lob.nextPlayer();
+        lob.nextPlayer();
+        lob.nextPlayer();
+        lob.nextPlayer();
+        assertEquals("pl1", lob.getCurrentPlayer().getName());
     }
 
 }
