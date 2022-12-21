@@ -21,6 +21,13 @@ public class PlayerTest {
     }
 
     @Test
+    public void testValidPlayerNameEmpty() {
+        Player player = new Player();
+        player.setName("");
+        assertEquals(false, player.validPlayer());
+    }
+
+    @Test
     public void testValidPlayerMissingColor() {
         Player player = new Player();
         player.setColor("red");
