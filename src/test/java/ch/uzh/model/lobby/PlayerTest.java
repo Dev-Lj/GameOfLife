@@ -67,4 +67,30 @@ public class PlayerTest {
         assertEquals(null, player.getName());
     }
 
+    @Test
+    public void testSetColorRed() {
+        Player player = new Player();
+        player.setColor("red");
+        assertEquals("red", player.getColor());
+    }
+
+    @Test
+    public void testSetColornull() {
+        Player player = new Player();
+        assertEquals(null, player.getName());
+    }
+
+    @Test
+    public void testToStringTestname() {
+        Player player = new Player();
+        player.setName("testname");
+        assertEquals("testname", player.toString());
+    }
+
+    @Test
+    public void testToStringNull() {
+        Player player = new Player();
+        assertEquals(null, player.toString());
+    }
+
 }

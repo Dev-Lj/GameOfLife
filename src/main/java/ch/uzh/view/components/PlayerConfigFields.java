@@ -27,6 +27,7 @@ public class PlayerConfigFields {
         this.lab = new Label(labelText);
         lab.setMinWidth(60);
         this.txt = new TextField();
+        this.txt.setPromptText("Name");
     }
 
     static class ColorRectCell extends ListCell<String> {
