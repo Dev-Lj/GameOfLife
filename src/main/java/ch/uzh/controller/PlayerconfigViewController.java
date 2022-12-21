@@ -35,7 +35,7 @@ public class PlayerconfigViewController implements Initializable {
             PlayerconfigController playerCont = new PlayerconfigController(i + 1);
             players.add(playerCont.getPlayer());
             playerInputControllers.add(playerCont);
-            vboxPlayerConfigList.getChildren().addAll(playerCont.getField());
+            vboxPlayerConfigList.getChildren().addAll(playerCont.getItem());
         }
     }
 
