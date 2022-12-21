@@ -64,10 +64,4 @@ public class PlayerconfigViewController implements Initializable {
         }
     }
 
-    public Lobby getLobby() {
-        return lobby;
-    }
-
-    // TODO research onChange update handlders for Text & Combobox
-
 }
