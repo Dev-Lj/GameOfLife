@@ -8,6 +8,7 @@ import ch.uzh.App;
 import ch.uzh.controller.components.PlayerconfigController;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.Player;
+import ch.uzh.model.lobby.PlayerConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +31,7 @@ public class PlayerconfigViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (int i = 0; i < Lobby.NR_PLAYERS; i++) {
+        for (int i = 0; i < PlayerConfig.NR_PLAYERS; i++) {
             PlayerconfigController playerCont = new PlayerconfigController(i + 1);
             players.add(playerCont.getPlayer());
             playerInputControllers.add(playerCont);
