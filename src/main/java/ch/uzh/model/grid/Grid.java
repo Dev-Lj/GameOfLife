@@ -1,13 +1,12 @@
 package ch.uzh.model.grid;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import ch.uzh.model.lobby.Player;
 
 public class Grid {
-    private static final int GRID_SIZE = 5;
-    private final Player[][] grid = new Player[GRID_SIZE][GRID_SIZE];
+    private static final int GRID_SIZE = 4;
+    private Player[][] grid = new Player[GRID_SIZE][GRID_SIZE];
     List<GridObserver> observers = new ArrayList<>();
 
 
@@ -48,7 +47,7 @@ public class Grid {
     /**
      * @pre coordinates not out of bounds of grid
      * */
-    private int getAliveNeighbours(int x, int y) {
+    private int getNumberOfAliveNeighbours(int x, int y) {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
         int aliveNeighbours = 0;
         for (int i = -1; i <= 1; i++) {
@@ -66,7 +65,17 @@ public class Grid {
      * */
     private Player getMostNeighbourPlayer(int x, int y) {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
-        return null;
+        Map<Player, Integer> neighbourFrequencies = new HashMap<>();
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if(x + i >= 0 && x + i < GRID_SIZE && y + j >= 0 && y + j < GRID_SIZE && !(i == 0 && j == 0) && isAlive(x + i, y + j)) {
+                    Player player = grid[x + i][y + j];
+                    Integer count = neighbourFrequencies.get(player);
+                    neighbourFrequencies.put(player, count != null ? count + 1 : 1);
+                }
+            }
+        }
+        return neighbourFrequencies.entrySet().stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
     }
 
     private Player[][] cloneGrid() {
@@ -79,15 +88,23 @@ public class Grid {
 
     public void computeGeneration() {
         Player[][] newGrid = cloneGrid();
-        for(int row = 0; row < GRID_SIZE; row++) {
-            for (int col = 0; col < GRID_SIZE; col++) {
-                if (isAlive(row, col)) {
-
+        for(int x = 0; x < GRID_SIZE; x++) {
+            for (int y = 0; y < GRID_SIZE; y++) {
+                int aliveNeighbours = getNumberOfAliveNeighbours(x, y);
+                if (isAlive(x, y)) {
+                    if (aliveNeighbours != 2 && aliveNeighbours != 3) {
+                        newGrid[x][y] = null;
+                    }
                 } else {
-
+                    if(aliveNeighbours == 3) {
+                        Player mostNeighbourPlayer = getMostNeighbourPlayer(x, y);
+                        newGrid[x][y] = mostNeighbourPlayer;
+                    }
                 }
             }
         }
+        grid = newGrid;
+        // ALGORITHM DESIGN:
         // loop over all cells
             // if cell is alive
                 // if 2 or 3 neighbours --> don't change anything
@@ -133,12 +150,10 @@ public class Grid {
         g.plantCell(0, 0, p1);
         g.plantCell(0, 1, p1);
         g.plantCell(0, 2, p2);
-        g.plantCell(2, 1, p2);
-        g.plantCell(4, 1, p2);
-
         g.printGrid();
-        System.out.println(g.getAliveNeighbours(4,4));
         g.computeGeneration();
-
+        g.printGrid();
+        g.computeGeneration();
+        g.printGrid();
     }
 }
