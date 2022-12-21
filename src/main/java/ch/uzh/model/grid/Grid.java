@@ -2,6 +2,7 @@ package ch.uzh.model.grid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import ch.uzh.model.lobby.Player;
 
@@ -41,7 +42,27 @@ public class Grid {
     }
 
     // JUST FOR DEBUGGING PURPOSES
+    public void printGrid() {
+        for (Player[] gridRow : grid) {
+            for (Player player : gridRow) {
+                String playerName = "null";
+                if (player != null) {
+                    playerName = player.getName();
+                }
+                System.out.print(playerName + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    // JUST FOR DEBUGGING PURPOSES
     public static void main(String[] args) {
-        Grid gridInstance = new Grid();
+        Player p1 = new Player();
+        p1.setName("p1");
+        Player p2 = new Player();
+        p2.setName("p2");
+        Grid g = new Grid();
+        g.plantCell(0, 0, p1);
+        g.printGrid();
     }
 }
