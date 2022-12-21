@@ -26,7 +26,7 @@ public class PlayerconfigController implements Initializable {
 
     public PlayerconfigController(int i) {
         lab.setText("Player " + i);
-        comBox = createComboBox();
+        comBox = new ComboBox<String>();
     }
 
     ObservableList<String> data = FXCollections.observableArrayList(
@@ -45,17 +45,16 @@ public class PlayerconfigController implements Initializable {
     }
 
     private ComboBox<String> createComboBox() {
-        ComboBox<String> combnew = new ComboBox<String>();
-        combnew.setItems(data);
+        comBox.setItems(data);
         Callback<ListView<String>, ListCell<String>> factory = new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> list) {
                 return new ColorRectCell();
             }
         };
-        combnew.setCellFactory(factory);
-        combnew.setButtonCell(factory.call(null));
-        return combnew;
+        comBox.setCellFactory(factory);
+        comBox.setButtonCell(factory.call(null));
+        return comBox;
     }
 
     @FXML
@@ -66,11 +65,11 @@ public class PlayerconfigController implements Initializable {
         return hbox;
     }
 
+    @FXML
     public void updatePlayer() {
         player.setName(txt.getText());
-        System.out.println(comBox.getValue().toString());
         try {
-            player.setColor(comBox.getValue().toString());
+            player.setColor(comBox.getValue());
         } catch (Exception e) {
             player.setColor(null);
         }
