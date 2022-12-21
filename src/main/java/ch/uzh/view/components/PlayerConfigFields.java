@@ -25,6 +25,7 @@ public class PlayerConfigFields {
         this.colorData = FXCollections.observableArrayList(colors);
         this.comBox = new ComboBox<String>();
         this.lab = new Label(labelText);
+        lab.setMinWidth(60);
         this.txt = new TextField();
     }
 

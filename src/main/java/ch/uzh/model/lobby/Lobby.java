@@ -29,7 +29,6 @@ public class Lobby {
     public void validPlayer() {
         for (Player player : players) {
             if (player.validPlayer() == false) {
-                System.out.println(player.validPlayer());
                 throw new IllegalArgumentException("Plz check if the players have color and name select/ filled out");
             }
         }
