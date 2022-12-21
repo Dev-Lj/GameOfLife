@@ -40,4 +40,17 @@ public class PlayerTest {
         assertEquals(false, player.validPlayer());
     }
 
+    @Test
+    public void testSetAmountOfCells5() {
+        Player player = new Player();
+        player.setAmountOfCells(5);
+        assertEquals(5, player.getAmountOfCells());
+    }
+
+    @Test
+    public void testSetAmountOfCells0() {
+        Player player = new Player();
+        assertEquals(0, player.getAmountOfCells());
+    }
+
 }
