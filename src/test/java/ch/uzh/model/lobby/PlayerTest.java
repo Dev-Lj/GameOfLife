@@ -53,4 +53,18 @@ public class PlayerTest {
         assertEquals(0, player.getAmountOfCells());
     }
 
+    // test set name
+    @Test
+    public void testSetNametestname() {
+        Player player = new Player();
+        player.setName("testname");
+        assertEquals("testname", player.getName());
+    }
+
+    @Test
+    public void testSetName() {
+        Player player = new Player();
+        assertEquals(null, player.getName());
+    }
+
 }
