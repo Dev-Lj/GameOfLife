@@ -124,6 +124,25 @@ public class Grid {
         }
     }
 
+    public String[][] getDrawableGrid() {
+        String[][] drawableGrid = new String[grid.length][grid.length];
+        for (int x = 0; x < drawableGrid.length; x++) {
+            for (int y = 0; y < drawableGrid.length; y++) {
+                // TODO Null check bad, replace Player[][] with Optional<Player>[][]
+                if (grid[x][y] == null) {
+                    drawableGrid[x][y] = "transparent";
+                } else {
+                    drawableGrid[x][y] = grid[x][y].getColor();
+                }
+            }
+        }
+        return drawableGrid;
+    }
+
+    public int getDimension() {
+        return grid.length;
+    }
+
     // JUST FOR DEBUGGING PURPOSES
     public void printGrid() {
         for (Player[] gridRow : grid) {
