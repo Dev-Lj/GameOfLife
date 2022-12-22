@@ -23,6 +23,7 @@ public class Grid {
             throw new InvalidCellException();
         }
         grid[x][y] = null;
+        notifyObservers();
     }
 
     /**
@@ -34,6 +35,7 @@ public class Grid {
             throw new InvalidCellException();
         }
         grid[x][y] = currentPlayer;
+        notifyObservers();
     }
 
     /**

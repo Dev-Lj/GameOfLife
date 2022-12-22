@@ -23,4 +23,7 @@
    <center>
       <HBox fx:id="hboxGameContent" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="342.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </center>
+   <bottom>
+      <Label fx:id="lblErrMsg" textFill="RED" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

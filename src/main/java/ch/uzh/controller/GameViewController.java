@@ -3,6 +3,7 @@ import ch.uzh.controller.fields.GridBoard;
 import ch.uzh.model.game.Game;
 import ch.uzh.model.game.GameObserver;
 import ch.uzh.model.grid.Grid;
+import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.Player;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ public class GameViewController implements GameObserver{
 
     @FXML private Label lblCurrentPlayer;
     @FXML private Label lblMoveDescription;
+    @FXML private Label lblErrMsg;
     @FXML private HBox hboxGameContent;
 
     public void initialize(Lobby lobby, Grid grid) {
@@ -32,9 +34,20 @@ public class GameViewController implements GameObserver{
         placeHolder.getChildren().add(new Label("Placeholder for Stats"));
         placeHolder.setPrefWidth(64);
         hboxGameContent.getChildren().add(placeHolder);
-        GridBoard gridBoard = new GridBoard(grid);
+        GridBoard gridBoard = new GridBoard(grid, this::cellSelection);
         HBox.setHgrow(gridBoard, Priority.ALWAYS);
         hboxGameContent.getChildren().add(gridBoard);
+    }
+
+    private void cellSelection(int x, int y) {
+        lblErrMsg.setText("");
+        try {
+            game.playerCellSelection(x, y);
+        } catch (InvalidCellException e) {
+            e.printStackTrace();
+            // TODO set errormessage in Grid pls thx
+            lblErrMsg.setText(e.getMessage());
+        }
     }
 
     @Override
