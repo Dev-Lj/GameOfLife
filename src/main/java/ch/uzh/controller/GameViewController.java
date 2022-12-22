@@ -7,10 +7,10 @@ import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.Player;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 
 public class GameViewController implements GameObserver{
     private Game game;
@@ -18,7 +18,9 @@ public class GameViewController implements GameObserver{
     @FXML private Label lblCurrentPlayer;
     @FXML private Label lblMoveDescription;
     @FXML private Label lblErrMsg;
-    @FXML private HBox hboxGameContent;
+    @FXML private StackPane stackAnchorGrid;
+    @FXML private AnchorPane anchorStatistics;
+    private GridBoard gridBoard;
 
     public void initialize(Lobby lobby, Grid grid) {
         assert lobby != null && grid != null;
@@ -31,18 +33,19 @@ public class GameViewController implements GameObserver{
         }
         game.attachObserver(this);
         game.initializeMoves();
-        initializeGameContent(grid);
+        initializeGridBoard(grid);
+        initializeStatisticsBoard();
     }
 
-    private void initializeGameContent(Grid grid) {
+    private void initializeGridBoard(Grid grid) {
+        gridBoard = new GridBoard(grid, this::cellSelection);
+        gridBoard.setAlignment(Pos.CENTER);
+        stackAnchorGrid.getChildren().add(gridBoard);
+    }
+
+    private void initializeStatisticsBoard() {
         // TODO replace with game statistics
-        AnchorPane placeHolder = new AnchorPane();
-        placeHolder.getChildren().add(new Label("Placeholder for Stats"));
-        placeHolder.setPrefWidth(64);
-        hboxGameContent.getChildren().add(placeHolder);
-        GridBoard gridBoard = new GridBoard(grid, this::cellSelection);
-        HBox.setHgrow(gridBoard, Priority.ALWAYS);
-        hboxGameContent.getChildren().add(gridBoard);
+        anchorStatistics.getChildren().add(new Label("Placeholder for Stats"));
     }
 
     private void cellSelection(int x, int y) {
