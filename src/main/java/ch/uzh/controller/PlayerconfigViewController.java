@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import ch.uzh.App;
 import ch.uzh.controller.components.PlayerconfigController;
+import ch.uzh.model.grid.Grid;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.Player;
 import ch.uzh.model.lobby.PlayerConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -19,8 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class PlayerconfigViewController implements Initializable {
-    Lobby lobby;
-
     @FXML
     private Label errorText;
 
@@ -50,11 +50,14 @@ public class PlayerconfigViewController implements Initializable {
     public void goNext(ActionEvent event) {
         updatePlayers();
         try {
-            lobby = new Lobby(players);
+            Lobby lobby = new Lobby(players);
             try {
-                Parent root = App.loadFXML("components/Grid");
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("GameView.fxml"));
+                Parent p = fxmlLoader.load();
+                GameViewController gController = fxmlLoader.getController();
+                gController.initialize(lobby, new Grid());
                 Scene rootScene = ((Node) event.getSource()).getScene();
-                rootScene.setRoot(root);
+                rootScene.setRoot(p);
             } catch (Exception e) {
                 e.printStackTrace();
                 errorText.setText(e.getMessage());

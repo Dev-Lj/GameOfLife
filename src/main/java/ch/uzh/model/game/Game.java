@@ -37,6 +37,9 @@ public class Game {
         assert grid != null && lobby != null;
         this.grid = grid;
         this.lobby = lobby;
+    }
+
+    public void initialize() {
         this.initializePlayerTurn();
     }
 
@@ -45,6 +48,7 @@ public class Game {
         remainingMoves = PlayerMove.values().length-1;
         nextMove = PlayerMove.values()[remainingMoves];
         notifyObserversNextPlayerTurn();
+        notifyObserversNextMove();
     }
 
     public void playerCellSelection(int x, int y) throws InvalidCellException {
@@ -60,6 +64,7 @@ public class Game {
             return;
         }
         nextMove = PlayerMove.values()[remainingMoves];
+        notifyObserversNextMove();
     }
 
     public void attachObserver(GameObserver observer) {
@@ -70,6 +75,12 @@ public class Game {
         Player currentPlayer = lobby.getCurrentPlayer();
         for (GameObserver gameObserver : observers) {
             gameObserver.nextPlayerTurn(currentPlayer);
+        }
+    }
+
+    private void notifyObserversNextMove() {
+        for (GameObserver gameObserver : observers) {
+            gameObserver.nextMove();
         }
     }
 
