@@ -9,11 +9,6 @@ public class Grid {
     private Player[][] grid = new Player[GRID_SIZE][GRID_SIZE];
     List<GridObserver> observers = new ArrayList<>();
 
-
-    public void changeGrid() {
-        notifyObservers();
-    }
-
     /**
      * @pre coordinates not out of bounds of grid
      * */
