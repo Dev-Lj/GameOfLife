@@ -55,7 +55,7 @@ public class Game {
     private void calculateNextMove() {
         remainingMoves--;
         if (remainingMoves < 0) {
-            // TODO grid.computeGeneration();
+            grid.computeGeneration();
             initializePlayerTurn();
             return;
         }
