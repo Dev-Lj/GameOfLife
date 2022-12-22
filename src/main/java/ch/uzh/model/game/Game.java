@@ -39,11 +39,37 @@ public class Game {
         this.lobby = lobby;
     }
 
-    public void initialize() {
+    public void initializeMoves() {
         remainingMoves = PlayerMove.values().length-1;
         nextMove = PlayerMove.values()[remainingMoves];
         notifyObserversNextPlayerTurn();
         notifyObserversNextMove();
+    }
+
+    public void initializeGrid() throws InvalidCellException {
+        setDefaultInitialGridPattern(grid);
+    }
+
+    /**
+     * Set stable initial pattern for both players
+     * @param grid
+     * @throws InvalidCellException
+     * @pre grid != null && no moves have been made on grid yet
+     */
+    private void setDefaultInitialGridPattern(Grid grid) throws InvalidCellException {
+        assert grid != null && grid.getDimension()>=4;
+        List<Player> players = lobby.getPlayers();
+        int halfLower = (int)grid.getDimension()/2;
+        // pattern for player 1
+        grid.plantCell(0, halfLower, players.get(0));
+        grid.plantCell(0, halfLower - 1, players.get(0));
+        grid.plantCell(1, halfLower, players.get(0));
+        grid.plantCell(1, halfLower - 1, players.get(0));
+        // pattern for player 2
+        grid.plantCell(grid.getDimension()-1, halfLower, players.get(1));
+        grid.plantCell(grid.getDimension()-1, halfLower - 1, players.get(1));
+        grid.plantCell(grid.getDimension()-2, halfLower, players.get(1));
+        grid.plantCell(grid.getDimension()-2, halfLower - 1, players.get(1));
     }
 
     private void initializePlayerTurn() {

@@ -23,8 +23,14 @@ public class GameViewController implements GameObserver{
     public void initialize(Lobby lobby, Grid grid) {
         assert lobby != null && grid != null;
         game = new Game(grid, lobby);
+        try {
+            game.initializeGrid();
+        } catch (InvalidCellException e) {
+            lblErrMsg.setText("Failed to initialize Grid: " + e.getMessage());
+            e.printStackTrace();
+        }
         game.attachObserver(this);
-        game.initialize();
+        game.initializeMoves();
         initializeGameContent(grid);
     }
 

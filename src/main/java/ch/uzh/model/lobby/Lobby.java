@@ -2,6 +2,8 @@ package ch.uzh.model.lobby;
 
 import java.util.ArrayList;
 
+// TODO replace Player with LobbyPlayer
+
 public class Lobby {
     private Player currentPlayer;
     private ArrayList<Player> players = new ArrayList<Player>();
@@ -23,6 +25,8 @@ public class Lobby {
         this.currentPlayer = players.get(this.playerCounter);
     }
 
+    // TODO imo validate() would be more clear.
+    // TODO validate each player and say exactly what is wrong. 
     public void validPlayer() {
         for (Player player : players) {
             if (player.validPlayer() == false) {
@@ -33,6 +37,10 @@ public class Lobby {
                 || players.get(0).getColor().equals(players.get(1).getColor()))
             throw new IllegalArgumentException("Name or collor does not differ, plz choose different names and colors");
 
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 
 }
