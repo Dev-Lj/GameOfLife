@@ -40,7 +40,10 @@ public class Game {
     }
 
     public void initialize() {
-        this.initializePlayerTurn();
+        remainingMoves = PlayerMove.values().length-1;
+        nextMove = PlayerMove.values()[remainingMoves];
+        notifyObserversNextPlayerTurn();
+        notifyObserversNextMove();
     }
 
     private void initializePlayerTurn() {
