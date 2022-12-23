@@ -1,9 +1,7 @@
 package ch.uzh.controller;
 import ch.uzh.model.game.Game;
 import ch.uzh.model.game.GameObserver;
-import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.InvalidCellException;
-import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
 import ch.uzh.view.components.GridBoard;
 import javafx.fxml.FXML;
@@ -22,28 +20,39 @@ public class GameViewController implements GameObserver{
     @FXML private AnchorPane anchorStatistics;
     private GridBoard gridBoard;
 
-    public void initialize(Lobby lobby, Grid grid) {
-        assert lobby != null && grid != null;
-        game = new Game(grid, lobby);
+    /**
+     * 
+     * @param game
+     * @throws Exception
+     * @pre game != null
+     */
+    public void initializeData(Game game) throws Exception {
+        assert game != null;
+        this.game = game;
         try {
             game.initializeGrid();
         } catch (InvalidCellException e) {
-            lblErrMsg.setText("Failed to initialize Grid: " + e.getMessage());
-            e.printStackTrace();
+            throw new Exception("Failed to initialize grid");
         }
         game.attachObserver(this);
         game.initializeMoves();
-        initializeGridBoard(grid);
-        initializeStatisticsBoard();
     }
 
-    private void initializeGridBoard(Grid grid) {
-        gridBoard = new GridBoard(grid, this::cellSelection);
+    /**
+     * @pre game != null => initializeData must be called before this
+     */
+    public void initializeGridBoard() {
+        assert game != null;
+        gridBoard = new GridBoard(game.getGrid(), this::cellSelection);
         gridBoard.setAlignment(Pos.CENTER);
         stackAnchorGrid.getChildren().add(gridBoard);
     }
 
-    private void initializeStatisticsBoard() {
+    /**
+     * @pre game != null => initializeData must be called before this
+     */
+    public void initializeStatisticsBoard() {
+        assert game != null;
         // TODO replace with game statistics
         anchorStatistics.getChildren().add(new Label("Placeholder for Stats"));
     }
@@ -53,8 +62,6 @@ public class GameViewController implements GameObserver{
         try {
             game.playerCellSelection(x, y);
         } catch (InvalidCellException e) {
-            e.printStackTrace();
-            // TODO set errormessage in Grid pls thx
             lblErrMsg.setText(e.getMessage());
         }
     }

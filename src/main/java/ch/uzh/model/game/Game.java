@@ -112,5 +112,9 @@ public class Game {
         return nextMove.description;
     }
 
+    public Grid getGrid() {
+        return grid;
+    }
+
     
 }

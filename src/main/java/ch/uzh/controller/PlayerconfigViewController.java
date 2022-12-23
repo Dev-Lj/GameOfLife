@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import ch.uzh.App;
 import ch.uzh.controller.components.PlayerconfigController;
+import ch.uzh.model.game.Game;
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
@@ -55,7 +56,11 @@ public class PlayerconfigViewController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("GameView.fxml"));
                 Parent p = fxmlLoader.load();
                 GameViewController gController = fxmlLoader.getController();
-                gController.initialize(lobby, new Grid());
+                Game game = new Game(new Grid(), lobby);
+                // TODO handle possible exception
+                gController.initializeData(game);
+                gController.initializeGridBoard();
+                gController.initializeStatisticsBoard();
                 Scene rootScene = ((Node) event.getSource()).getScene();
                 rootScene.setRoot(p);
             } catch (Exception e) {
