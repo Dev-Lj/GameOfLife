@@ -1,12 +1,11 @@
 package ch.uzh.view.components;
 import ch.uzh.model.game.CellSelectionStrategy;
 import ch.uzh.model.grid.Grid;
-import ch.uzh.model.grid.GridObserver;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GridBoard extends GridPane implements GridObserver{
+public class GridBoard extends GridPane{
     
     private final Grid grid;
     private final CellSelectionStrategy cellSelectionStrategy;
@@ -18,7 +17,6 @@ public class GridBoard extends GridPane implements GridObserver{
         this.cells = new Rectangle[grid.getDimension()][grid.getDimension()];
         initializeGridBoard();
         draw();
-        grid.attachObserver(this);
     }
 
     private void initializeGridBoard() {
@@ -45,11 +43,5 @@ public class GridBoard extends GridPane implements GridObserver{
                 cells[x][y].setFill(Color.web(drawableGrid[x][y]));
             }
         }
-    }
-
-    @Override
-    public void notifyUpdate() {
-        draw();
-    }
-    
+    }    
 }

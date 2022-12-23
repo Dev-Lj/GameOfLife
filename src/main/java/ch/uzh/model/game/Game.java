@@ -116,5 +116,9 @@ public class Game {
         return grid;
     }
 
+    public Lobby getLobby() {
+        return lobby;
+    }
+
     
 }

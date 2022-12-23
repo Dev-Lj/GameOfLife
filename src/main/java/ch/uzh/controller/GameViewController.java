@@ -1,8 +1,10 @@
 package ch.uzh.controller;
 import ch.uzh.model.game.Game;
 import ch.uzh.model.game.GameObserver;
+import ch.uzh.model.grid.GridObserver;
 import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.LobbyPlayer;
+import ch.uzh.view.components.GameStatistics;
 import ch.uzh.view.components.GridBoard;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -10,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-public class GameViewController implements GameObserver{
+public class GameViewController implements GameObserver, GridObserver{
     private Game game;
 
     @FXML private Label lblCurrentPlayer;
@@ -19,6 +21,7 @@ public class GameViewController implements GameObserver{
     @FXML private StackPane stackAnchorGrid;
     @FXML private AnchorPane anchorStatistics;
     private GridBoard gridBoard;
+    private GameStatistics statistics;
 
     /**
      * 
@@ -35,6 +38,7 @@ public class GameViewController implements GameObserver{
             throw new Exception("Failed to initialize grid");
         }
         game.attachObserver(this);
+        game.getGrid().attachObserver(this);
         game.initializeMoves();
     }
 
@@ -53,8 +57,14 @@ public class GameViewController implements GameObserver{
      */
     public void initializeStatisticsBoard() {
         assert game != null;
-        // TODO replace with game statistics
-        anchorStatistics.getChildren().add(new Label("Placeholder for Stats"));
+        statistics = new GameStatistics(game.getLobby(), this::setWinner);
+        statistics.setAlignment(Pos.CENTER);
+        anchorStatistics.getChildren().add(statistics);
+    }
+
+    public void setWinner(LobbyPlayer winner) {
+        // TODO proper winning screen
+        System.out.println(winner.getName());
     }
 
     private void cellSelection(int x, int y) {
@@ -74,5 +84,11 @@ public class GameViewController implements GameObserver{
     @Override
     public void nextMove() {
         lblMoveDescription.setText(game.getCurrentMoveDescription());
+    }
+
+    @Override
+    public void notifyUpdate() {
+        statistics.drawScores(0);
+        gridBoard.draw();
     }
 }
