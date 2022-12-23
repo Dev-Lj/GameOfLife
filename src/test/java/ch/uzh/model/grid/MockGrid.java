@@ -1,6 +1,6 @@
 package ch.uzh.model.grid;
 
-public class StubGrid extends Grid{
+public class MockGrid extends Grid{
     private boolean generationComputed = false;
 
     @Override

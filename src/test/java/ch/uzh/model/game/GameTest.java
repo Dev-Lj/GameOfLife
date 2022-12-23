@@ -9,24 +9,25 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
-import ch.uzh.model.grid.StubGrid;
+
+import ch.uzh.model.grid.MockGrid;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
-import ch.uzh.model.lobby.StubLobbyPlayer;
+import ch.uzh.model.lobby.MockLobbyPlayer;
 
 public class GameTest {
-    private StubGrid stubGrid;
-    private StubLobbyPlayer p1;
-    private StubLobbyPlayer p2;
+    private MockGrid mockGrid;
+    private MockLobbyPlayer p1;
+    private MockLobbyPlayer p2;
     private Lobby stubLobby;
     private Game game;
     
     public GameTest() {
-        stubGrid = new StubGrid();
-        p1 = new StubLobbyPlayer("p1", "red");
-        p2 = new StubLobbyPlayer("p2", "blue");
+        mockGrid = new MockGrid();
+        p1 = new MockLobbyPlayer("p1", "red");
+        p2 = new MockLobbyPlayer("p2", "blue");
         stubLobby = new Lobby(new ArrayList<LobbyPlayer>(Arrays.asList(p1, p2)));
-        game = new Game(stubGrid, stubLobby);
+        game = new Game(mockGrid, stubLobby);
     }
 
     private void notifyObserversNextPlayerTurn(Game game, LobbyPlayer currentPlayer) throws Throwable {
@@ -61,7 +62,7 @@ public class GameTest {
 
     @Test
     public void testCalculateNextMove_twoMovesPerPlayer() throws Throwable {
-        game = new Game(stubGrid, stubLobby);
+        game = new Game(mockGrid, stubLobby);
         LobbyPlayer p = stubLobby.getCurrentPlayer();
         calculateNextMove(game);
         assertEquals(p.getName(), stubLobby.getCurrentPlayer().getName());
@@ -78,10 +79,10 @@ public class GameTest {
     @Test
     public void testCalculateNextMove_generationComputedAfterTwoMoves() throws Throwable {
   
-        assertFalse(stubGrid.isGenerationComputed());
+        assertFalse(mockGrid.isGenerationComputed());
         calculateNextMove(game);
         calculateNextMove(game);
-        assertTrue(stubGrid.isGenerationComputed());
+        assertTrue(mockGrid.isGenerationComputed());
     }
 
     @Test
