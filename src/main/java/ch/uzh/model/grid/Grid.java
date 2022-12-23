@@ -14,8 +14,12 @@ public class Grid {
      * */
     public void killCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
-        if(grid[x][y] == currentPlayer || grid[x][y] == null) {
-            throw new InvalidCellException();
+        LobbyPlayer cell = grid[x][y];
+        if (cell == null) {
+            throw new InvalidCellException("Cell is already dead");
+        }
+        if (cell.equals(currentPlayer)) {
+            throw new InvalidCellException("You can not kill your own cells");
         }
         grid[x][y] = null;
         notifyObservers();
@@ -26,8 +30,8 @@ public class Grid {
      * */
     public void plantCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
-        if(grid[x][y] == currentPlayer) {
-            throw new InvalidCellException();
+        if(grid[x][y] != null) {
+            throw new InvalidCellException("Cell is already alive");
         }
         grid[x][y] = currentPlayer;
         notifyObservers();
