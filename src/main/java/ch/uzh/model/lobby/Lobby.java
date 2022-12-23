@@ -2,20 +2,18 @@ package ch.uzh.model.lobby;
 
 import java.util.ArrayList;
 
-// TODO replace Player with LobbyPlayer
-
 public class Lobby {
-    private Player currentPlayer;
-    private ArrayList<Player> players = new ArrayList<Player>();
+    private LobbyPlayer currentPlayer;
+    private ArrayList<LobbyPlayer> players = new ArrayList<LobbyPlayer>();
     private int playerCounter = 1;
 
-    public Lobby(ArrayList<Player> players) {
+    public Lobby(ArrayList<LobbyPlayer> players) {
         this.players = players;
         nextPlayer();
         validPlayer();
     }
 
-    public Player getCurrentPlayer() {
+    public LobbyPlayer getCurrentPlayer() {
         return currentPlayer;
     }
 
@@ -26,9 +24,9 @@ public class Lobby {
     }
 
     // TODO imo validate() would be more clear.
-    // TODO validate each player and say exactly what is wrong. 
+    // TODO validate each player and say exactly what is wrong.
     public void validPlayer() {
-        for (Player player : players) {
+        for (LobbyPlayer player : players) {
             if (player.validPlayer() == false) {
                 throw new IllegalArgumentException("Plz check if the players have color and name select/ filled out");
             }
@@ -39,7 +37,7 @@ public class Lobby {
 
     }
 
-    public ArrayList<Player> getPlayers() {
+    public ArrayList<LobbyPlayer> getPlayers() {
         return players;
     }
 

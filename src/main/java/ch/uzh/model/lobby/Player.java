@@ -1,6 +1,6 @@
 package ch.uzh.model.lobby;
 
-public class Player {
+public class Player implements LobbyPlayer {
     private String color;
     private String name;
     private int amountOfCells;

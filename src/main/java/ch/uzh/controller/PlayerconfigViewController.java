@@ -8,7 +8,7 @@ import ch.uzh.App;
 import ch.uzh.controller.components.PlayerconfigController;
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.lobby.Lobby;
-import ch.uzh.model.lobby.Player;
+import ch.uzh.model.lobby.LobbyPlayer;
 import ch.uzh.model.lobby.PlayerConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ public class PlayerconfigViewController implements Initializable {
     @FXML
     private VBox vboxPlayerConfigList;
     private List<PlayerconfigController> playerInputControllers = new ArrayList<PlayerconfigController>();
-    private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<LobbyPlayer> players = new ArrayList<LobbyPlayer>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
