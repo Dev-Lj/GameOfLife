@@ -15,21 +15,30 @@ public class LobbyTest {
         return players;
     }
 
-    public ArrayList<Player> createCorrectList() {
+    public ArrayList<LobbyPlayer> createCorrectList() {
         ArrayList<Player> players = createPlayerlist();
+        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
         players.get(0).setName("pl1");
         players.get(1).setName("pl2");
         players.get(0).setColor("green");
         players.get(1).setColor("red");
-        return players;
+        for (Player player : players) {
+            lobbyPlayers.add(player);
+        }
+        return lobbyPlayers;
     }
 
     @Test
     public void testLobbyPlayerNull() {
+        ArrayList<Player> players = createPlayerlist();
+        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
+        for (Player player : players) {
+            lobbyPlayers.add(player);
+        }
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-                    new Lobby(createPlayerlist());
+                    new Lobby(lobbyPlayers);
                 });
         assertEquals("Plz check if the players have color and name select/ filled out", exception.getMessage());
     }
@@ -42,10 +51,14 @@ public class LobbyTest {
         }
         players.get(0).setName("pl1");
         players.get(1).setName("pl2");
+        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
+        for (Player player : players) {
+            lobbyPlayers.add(player);
+        }
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-                    new Lobby(players);
+                    new Lobby(lobbyPlayers);
                 });
         assertEquals("Name or collor does not differ, plz choose different names and colors", exception.getMessage());
     }
@@ -58,31 +71,34 @@ public class LobbyTest {
         }
         players.get(0).setColor("green");
         players.get(1).setColor("red");
+        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
+        for (Player player : players) {
+            lobbyPlayers.add(player);
+        }
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-                    new Lobby(players);
+                    new Lobby(lobbyPlayers);
                 });
         assertEquals("Name or collor does not differ, plz choose different names and colors", exception.getMessage());
     }
 
     @Test
     public void testLobyCreationCorrect() {
-        ArrayList<Player> players = createCorrectList();
-        Lobby lob = new Lobby(players);
+        Lobby lob = new Lobby(createCorrectList());
         assertEquals(Lobby.class, lob.getClass());
     }
 
     @Test
     public void testCurrentPlayer() {
-        ArrayList<Player> players = createCorrectList();
+        ArrayList<LobbyPlayer> players = createCorrectList();
         Lobby lob = new Lobby(players);
         assertEquals("pl1", lob.getCurrentPlayer().getName());
     }
 
     @Test
     public void testCurrentNextPlayer() {
-        ArrayList<Player> players = createCorrectList();
+        ArrayList<LobbyPlayer> players = createCorrectList();
         Lobby lob = new Lobby(players);
         lob.nextPlayer();
         assertEquals("pl2", lob.getCurrentPlayer().getName());
@@ -90,7 +106,7 @@ public class LobbyTest {
 
     @Test
     public void testCurrentNextPlayer4() {
-        ArrayList<Player> players = createCorrectList();
+        ArrayList<LobbyPlayer> players = createCorrectList();
         Lobby lob = new Lobby(players);
         lob.nextPlayer();
         lob.nextPlayer();
