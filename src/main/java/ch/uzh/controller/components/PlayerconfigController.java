@@ -10,11 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 
 public class PlayerconfigController implements Initializable {
-    private Player player = new Player();
+    private Player player;
     private PlayerConfigFields pc;
 
-    public PlayerconfigController(int i) {
-        pc = new PlayerConfigFields(PlayerConfig.COLORS, "Player " + i);
+    public PlayerconfigController(int id) {
+        player = new Player(id);
+        pc = new PlayerConfigFields(PlayerConfig.COLORS, "Player " + id);
     }
 
     @FXML

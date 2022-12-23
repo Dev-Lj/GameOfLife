@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LobbyTest {
     public ArrayList<Player> createPlayerlist() {
-        Player player1 = new Player();
-        Player player2 = new Player();
+        Player player1 = new Player(1);
+        Player player2 = new Player(1);
         ArrayList<Player> players = new ArrayList<Player>();
         players.add(player1);
         players.add(player2);

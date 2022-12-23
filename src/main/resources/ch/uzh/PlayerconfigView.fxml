@@ -10,9 +10,13 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.uzh.controller.PlayerconfigViewController">
    <center>
-      <VBox fx:id="vboxPlayerConfigList" prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxPlayerConfigList" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="errorText" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="17.0" prefWidth="653.0" textFill="RED" />
+            <Label fx:id="errorText" alignment="CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="653.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+               </Label>
          </children></VBox>
    </center>
    <bottom>
@@ -37,9 +41,9 @@
       </AnchorPane>
    </top>
    <left>
-      <AnchorPane prefHeight="204.0" prefWidth="110.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="204.0" prefWidth="84.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <AnchorPane prefHeight="204.0" prefWidth="110.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="204.0" prefWidth="84.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>

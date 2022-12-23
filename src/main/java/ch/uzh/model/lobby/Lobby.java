@@ -10,7 +10,7 @@ public class Lobby {
     public Lobby(ArrayList<LobbyPlayer> players) {
         this.players = players;
         nextPlayer();
-        validPlayer();
+        validate();
     }
 
     public LobbyPlayer getCurrentPlayer() {
@@ -23,18 +23,23 @@ public class Lobby {
         this.currentPlayer = players.get(this.playerCounter);
     }
 
-    // TODO imo validate() would be more clear.
-    // TODO validate each player and say exactly what is wrong.
-    public void validPlayer() {
+    public void validate() {
         for (LobbyPlayer player : players) {
-            if (player.validPlayer() == false) {
-                throw new IllegalArgumentException("Plz check if the players have color and name select/ filled out");
+            player.validPlayer();
+        }
+        for (int i = 0; i < players.size(); i++) {
+            for (int j = i + 1; j < players.size(); j++) {
+                if (players.get(i).getColor().equals(players.get(j).getColor())) {
+                    throw new IllegalArgumentException(
+                            "Color of player " + (i + 1) + " and player " + (j + 1)
+                                    + " are the same, please choose different colors");
+                } else if (players.get(i).getName().equals(players.get(j).getName())) {
+                    throw new IllegalArgumentException(
+                            "Name of player " + (i + 1) + " and player " + (j + 1)
+                                    + " are the same, please choose different names");
+                }
             }
         }
-        if (players.get(0).getName().equals(players.get(1).getName())
-                || players.get(0).getColor().equals(players.get(1).getColor()))
-            throw new IllegalArgumentException("Name or collor does not differ, plz choose different names and colors");
-
     }
 
     public ArrayList<LobbyPlayer> getPlayers() {

@@ -4,8 +4,10 @@ public class Player implements LobbyPlayer {
     private String color;
     private String name;
     private int amountOfCells;
+    private int playerId;
 
-    public Player() {
+    public Player(int id) {
+        playerId = id;
     }
 
     public void setAmountOfCells(int amountOfCells) {
@@ -38,6 +40,12 @@ public class Player implements LobbyPlayer {
     }
 
     public boolean validPlayer() {
-        return name != null && !name.equals("") && color != null;
+        if (color == null) {
+            throw new IllegalArgumentException("Color of player " + playerId + " is missing");
+        } else if (name == null || name.equals("")) {
+            throw new IllegalArgumentException("Name of player " + playerId + " is missing");
+        } else {
+            return true;
+        }
     }
 }
