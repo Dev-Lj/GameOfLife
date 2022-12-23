@@ -54,7 +54,7 @@ public class Game {
      * Set stable initial pattern for both players
      * @param grid
      * @throws InvalidCellException
-     * @pre grid != null && no moves have been made on grid yet
+     * @pre grid != null && grid.getDimension()>=4 && no moves have been made on grid yet
      */
     private void setDefaultInitialGridPattern(Grid grid) throws InvalidCellException {
         assert grid != null && grid.getDimension()>=4;
