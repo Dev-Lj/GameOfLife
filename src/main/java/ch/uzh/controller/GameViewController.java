@@ -5,7 +5,7 @@ import ch.uzh.model.game.GameObserver;
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.Lobby;
-import ch.uzh.model.lobby.Player;
+import ch.uzh.model.lobby.LobbyPlayer;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -60,7 +60,7 @@ public class GameViewController implements GameObserver{
     }
 
     @Override
-    public void nextPlayerTurn(Player currentPlayer) {
+    public void nextPlayerTurn(LobbyPlayer currentPlayer) {
         lblCurrentPlayer.setText(currentPlayer.getName());
     }
 

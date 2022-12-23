@@ -6,7 +6,7 @@ import java.util.List;
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.Lobby;
-import ch.uzh.model.lobby.Player;
+import ch.uzh.model.lobby.LobbyPlayer;
 
 enum PlayerMove {
     KillCell("Click on an enemy cell to kill it", Grid::killCell),
@@ -23,7 +23,7 @@ enum PlayerMove {
 
 @FunctionalInterface
 interface PlayerMoveFunction {
-    public void execute(Grid grid, int x, int y, Player currentPlayer) throws InvalidCellException;
+    public void execute(Grid grid, int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException;
 }
 
 public class Game {
@@ -58,7 +58,7 @@ public class Game {
      */
     private void setDefaultInitialGridPattern(Grid grid) throws InvalidCellException {
         assert grid != null && grid.getDimension()>=4;
-        List<Player> players = lobby.getPlayers();
+        List<LobbyPlayer> players = lobby.getPlayers();
         int halfLower = (int)grid.getDimension()/2;
         // pattern for player 1
         grid.plantCell(0, halfLower, players.get(0));
@@ -101,7 +101,7 @@ public class Game {
     }
 
     private void notifyObserversNextPlayerTurn() {
-        Player currentPlayer = lobby.getCurrentPlayer();
+        LobbyPlayer currentPlayer = lobby.getCurrentPlayer();
         for (GameObserver gameObserver : observers) {
             gameObserver.nextPlayerTurn(currentPlayer);
         }

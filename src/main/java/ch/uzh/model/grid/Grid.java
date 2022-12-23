@@ -2,17 +2,17 @@ package ch.uzh.model.grid;
 
 import java.util.*;
 
-import ch.uzh.model.lobby.Player;
+import ch.uzh.model.lobby.LobbyPlayer;
 
 public class Grid {
     private static final int GRID_SIZE = 4;
-    private Player[][] grid = new Player[GRID_SIZE][GRID_SIZE];
+    private LobbyPlayer[][] grid = new LobbyPlayer[GRID_SIZE][GRID_SIZE];
     List<GridObserver> observers = new ArrayList<>();
 
     /**
      * @pre coordinates not out of bounds of grid
      * */
-    public void killCell(int x, int y, Player currentPlayer) throws InvalidCellException {
+    public void killCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
         if(grid[x][y] == currentPlayer || grid[x][y] == null) {
             throw new InvalidCellException();
@@ -24,7 +24,7 @@ public class Grid {
     /**
      * @pre coordinates not out of bounds of grid
      * */
-    public void plantCell(int x, int y, Player currentPlayer) throws InvalidCellException {
+    public void plantCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
         if(grid[x][y] == currentPlayer) {
             throw new InvalidCellException();
@@ -60,13 +60,13 @@ public class Grid {
     /**
      * @pre coordinates not out of bounds of grid
      * */
-    private Player getMostNeighbourPlayer(int x, int y) {
+    private LobbyPlayer getMostNeighbourPlayer(int x, int y) {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
-        Map<Player, Integer> neighbourFrequencies = new HashMap<>();
+        Map<LobbyPlayer, Integer> neighbourFrequencies = new HashMap<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if(x + i >= 0 && x + i < GRID_SIZE && y + j >= 0 && y + j < GRID_SIZE && !(i == 0 && j == 0) && isAlive(x + i, y + j)) {
-                    Player player = grid[x + i][y + j];
+                    LobbyPlayer player = grid[x + i][y + j];
                     Integer count = neighbourFrequencies.get(player);
                     neighbourFrequencies.put(player, count != null ? count + 1 : 1);
                 }
@@ -75,8 +75,8 @@ public class Grid {
         return neighbourFrequencies.entrySet().stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
     }
 
-    private Player[][] cloneGrid() {
-        Player[][] newGrid = grid.clone();
+    private LobbyPlayer[][] cloneGrid() {
+        LobbyPlayer[][] newGrid = grid.clone();
         for(int row = 0; row < GRID_SIZE; row++) {
             newGrid[row] = grid[row].clone();
         }
@@ -84,7 +84,7 @@ public class Grid {
     }
 
     public void computeGeneration() {
-        Player[][] newGrid = cloneGrid();
+        LobbyPlayer[][] newGrid = cloneGrid();
         for(int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
                 int aliveNeighbours = getNumberOfAliveNeighbours(x, y);
@@ -94,7 +94,7 @@ public class Grid {
                     }
                 } else {
                     if(aliveNeighbours == 3) {
-                        Player mostNeighbourPlayer = getMostNeighbourPlayer(x, y);
+                        LobbyPlayer mostNeighbourPlayer = getMostNeighbourPlayer(x, y);
                         newGrid[x][y] = mostNeighbourPlayer;
                     }
                 }
@@ -141,35 +141,35 @@ public class Grid {
     }
 
     // JUST FOR DEBUGGING PURPOSES
-    public void printGrid() {
-        for (Player[] gridRow : grid) {
-            for (Player player : gridRow) {
-                String playerName = "null";
-                if (player != null) {
-                    playerName = player.getName();
-                }
-                System.out.print(playerName + "\t");
-            }
-            System.out.println();
-        }
-        System.out.println("-------------");
-    }
+    // public void printGrid() {
+    //     for (LobbyPlayer[] gridRow : grid) {
+    //         for (LobbyPlayer player : gridRow) {
+    //             String playerName = "null";
+    //             if (player != null) {
+    //                 playerName = player.getName();
+    //             }
+    //             System.out.print(playerName + "\t");
+    //         }
+    //         System.out.println();
+    //     }
+    //     System.out.println("-------------");
+    // }
 
-    // JUST FOR DEBUGGING PURPOSES
-    public static void main(String[] args) throws InvalidCellException {
-        Player p1 = new Player();
-        p1.setName(" p1 ");
-        Player p2 = new Player();
-        p2.setName(" p2 ");
-        Grid g = new Grid();
+    // // JUST FOR DEBUGGING PURPOSES
+    // public static void main(String[] args) throws InvalidCellException {
+    //     LobbyPlayer p1 = new Player();
+    //     p1.setName(" p1 ");
+    //     LobbyPlayer p2 = new Player();
+    //     p2.setName(" p2 ");
+    //     Grid g = new Grid();
 
-        g.plantCell(0, 0, p1);
-        g.plantCell(0, 1, p1);
-        g.plantCell(0, 2, p2);
-        g.printGrid();
-        g.computeGeneration();
-        g.printGrid();
-        g.computeGeneration();
-        g.printGrid();
-    }
+    //     g.plantCell(0, 0, p1);
+    //     g.plantCell(0, 1, p1);
+    //     g.plantCell(0, 2, p2);
+    //     g.printGrid();
+    //     g.computeGeneration();
+    //     g.printGrid();
+    //     g.computeGeneration();
+    //     g.printGrid();
+    // }
 }

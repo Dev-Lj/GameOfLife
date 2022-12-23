@@ -1,8 +1,8 @@
 package ch.uzh.model.game;
 
-import ch.uzh.model.lobby.Player;
+import ch.uzh.model.lobby.LobbyPlayer;
 
 public interface GameObserver {
-    public void nextPlayerTurn(Player currentPlayer);
+    public void nextPlayerTurn(LobbyPlayer currentPlayer);
     public void nextMove();
 }
