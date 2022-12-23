@@ -1,11 +1,11 @@
 package ch.uzh.controller;
-import ch.uzh.controller.fields.GridBoard;
 import ch.uzh.model.game.Game;
 import ch.uzh.model.game.GameObserver;
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
+import ch.uzh.view.components.GridBoard;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

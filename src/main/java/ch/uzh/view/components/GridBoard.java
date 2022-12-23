@@ -1,4 +1,4 @@
-package ch.uzh.controller.fields;
+package ch.uzh.view.components;
 import ch.uzh.model.game.CellSelectionStrategy;
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.GridObserver;
