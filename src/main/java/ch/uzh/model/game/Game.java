@@ -37,12 +37,12 @@ public class Game {
         assert grid != null && lobby != null;
         this.grid = grid;
         this.lobby = lobby;
+        remainingMoves = PlayerMove.values().length-1;
+        nextMove = PlayerMove.values()[remainingMoves];
     }
 
     public void initializeMoves() {
-        remainingMoves = PlayerMove.values().length-1;
-        nextMove = PlayerMove.values()[remainingMoves];
-        notifyObserversNextPlayerTurn();
+        notifyObserversNextPlayerTurn(lobby.getCurrentPlayer());
         notifyObserversNextMove();
     }
 
@@ -72,14 +72,6 @@ public class Game {
         grid.plantCell(grid.getDimension()-2, halfLower - 1, players.get(1));
     }
 
-    private void initializePlayerTurn() {
-        lobby.nextPlayer();
-        remainingMoves = PlayerMove.values().length-1;
-        nextMove = PlayerMove.values()[remainingMoves];
-        notifyObserversNextPlayerTurn();
-        notifyObserversNextMove();
-    }
-
     public void playerCellSelection(int x, int y) throws InvalidCellException {
         nextMove.function.execute(grid, x, y, lobby.getCurrentPlayer());
         calculateNextMove();
@@ -88,11 +80,15 @@ public class Game {
     private void calculateNextMove() {
         remainingMoves--;
         if (remainingMoves < 0) {
+            // switch player
             grid.computeGeneration();
-            initializePlayerTurn();
-            return;
+            lobby.nextPlayer();
+            remainingMoves = PlayerMove.values().length-1;
+            nextMove = PlayerMove.values()[remainingMoves];
+            notifyObserversNextPlayerTurn(lobby.getCurrentPlayer());
+        } else {
+            nextMove = PlayerMove.values()[remainingMoves];
         }
-        nextMove = PlayerMove.values()[remainingMoves];
         notifyObserversNextMove();
     }
 
@@ -100,8 +96,7 @@ public class Game {
         this.observers.add(observer);
     }
 
-    private void notifyObserversNextPlayerTurn() {
-        LobbyPlayer currentPlayer = lobby.getCurrentPlayer();
+    private void notifyObserversNextPlayerTurn(LobbyPlayer currentPlayer) {
         for (GameObserver gameObserver : observers) {
             gameObserver.nextPlayerTurn(currentPlayer);
         }
