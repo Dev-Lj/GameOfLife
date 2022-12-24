@@ -105,14 +105,7 @@ public class Grid {
             }
         }
         grid = newGrid;
-        // ALGORITHM DESIGN:
-        // loop over all cells
-            // if cell is alive
-                // if 2 or 3 neighbours --> don't change anything
-                // else --> make cell dead
-            // if cell is dead
-                // if 3 neightbours --> make alive (color of most neighbours)
-                // else --> don't change anything
+        notifyObservers();
     }
 
     public void attachObserver(GridObserver observer) {
