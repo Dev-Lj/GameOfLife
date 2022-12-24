@@ -9,8 +9,8 @@ import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
 
 enum PlayerMove {
-    KillCell("Click on an enemy cell to kill it", Grid::killCell),
-    PlantCell("Click on a dead cell to bring it to live", Grid::plantCell);
+    PlantCell("Click on a dead cell to bring it to live", Grid::plantCell),
+    KillCell("Click on an enemy cell to kill it", Grid::killCell);
 
     final String description;
     PlayerMoveFunction function;
