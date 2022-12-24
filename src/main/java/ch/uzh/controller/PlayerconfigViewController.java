@@ -51,7 +51,8 @@ public class PlayerconfigViewController implements Initializable {
     public void goNext(ActionEvent event) {
         updatePlayers();
         try {
-            Lobby lobby = new Lobby(players);
+            // TODO ensure lobby can only be created with valid players
+            Lobby lobby = new Lobby(players.get(0), players.get(1));
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("GameView.fxml"));
                 Parent p = fxmlLoader.load();
