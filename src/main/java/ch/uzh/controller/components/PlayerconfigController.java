@@ -10,11 +10,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 
 public class PlayerconfigController implements Initializable {
+    private final int id;
     private Player player;
     private PlayerConfigFields pc;
 
     public PlayerconfigController(int id) {
-        player = new Player(id);
+        this.id = id;
+        player = new Player();
         pc = new PlayerConfigFields(PlayerConfig.COLORS, "Player " + id);
     }
 
@@ -32,7 +34,12 @@ public class PlayerconfigController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    public Player getPlayer() {
+    public Player getLobbyPlayer() throws IllegalArgumentException{
+        try {
+            player.validate();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(String.format("Player %d: %s", id, e.getMessage()));
+        }
         return player;
     }
 

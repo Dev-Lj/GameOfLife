@@ -11,7 +11,7 @@ public class Lobby {
     /**
      * 
      * @param players
-     * @pre players != null && players.length >= 2
+     * @pre players != null && players.length >= 2 && player is valid
      */
     public Lobby(LobbyPlayer... players) {
         assert players != null && players.length >= 2;
@@ -30,10 +30,7 @@ public class Lobby {
         this.currentPlayer = players.get(this.playerCounter);
     }
 
-    public void validate() {
-        for (LobbyPlayer player : players) {
-            player.validPlayer();
-        }
+    private void validate() {
         // TODO use highlevel methods instead of manually checking for duplicates
         for (int i = 0; i < players.size(); i++) {
             for (int j = i + 1; j < players.size(); j++) {

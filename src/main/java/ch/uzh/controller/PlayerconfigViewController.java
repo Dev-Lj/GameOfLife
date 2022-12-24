@@ -28,13 +28,11 @@ public class PlayerconfigViewController implements Initializable {
     @FXML
     private VBox vboxPlayerConfigList;
     private List<PlayerconfigController> playerInputControllers = new ArrayList<PlayerconfigController>();
-    private ArrayList<LobbyPlayer> players = new ArrayList<LobbyPlayer>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         for (int i = 0; i < PlayerConfig.NR_PLAYERS; i++) {
             PlayerconfigController playerCont = new PlayerconfigController(i + 1);
-            players.add(playerCont.getPlayer());
             playerInputControllers.add(playerCont);
             vboxPlayerConfigList.getChildren().addAll(playerCont.getItem());
         }
@@ -47,12 +45,16 @@ public class PlayerconfigViewController implements Initializable {
         }
     }
 
+    private Lobby createLobby() throws IllegalArgumentException{
+         LobbyPlayer[] players = playerInputControllers.stream().map(input->input.getLobbyPlayer()).toArray(size->new LobbyPlayer[size]);
+        return new Lobby(players);
+    }
+
     @FXML
     public void goNext(ActionEvent event) {
         updatePlayers();
         try {
-            // TODO ensure lobby can only be created with valid players
-            Lobby lobby = new Lobby(players.get(0), players.get(1));
+            Lobby lobby = createLobby();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("GameView.fxml"));
                 Parent p = fxmlLoader.load();
