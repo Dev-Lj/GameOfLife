@@ -61,8 +61,7 @@ public class PlayerconfigViewController implements Initializable {
                 Game game = new Game(new Grid(), lobby);
                 // TODO handle possible exception
                 gController.initializeData(game);
-                gController.initializeGridBoard();
-                gController.initializeStatisticsBoard();
+                gController.initializeView();
                 Scene rootScene = ((Node) event.getSource()).getScene();
                 rootScene.setRoot(p);
             } catch (Exception e) {

@@ -1,9 +1,9 @@
 package ch.uzh.controller;
-import java.lang.ModuleLayer.Controller;
 
 import ch.uzh.App;
 import ch.uzh.model.game.Game;
 import ch.uzh.model.game.GameObserver;
+import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.GridObserver;
 import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.LobbyPlayer;
@@ -13,11 +13,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 public class GameViewController implements GameObserver, GridObserver{
     private Game game;
@@ -53,9 +51,19 @@ public class GameViewController implements GameObserver, GridObserver{
     /**
      * @pre game != null => initializeData must be called before this
      */
-    public void initializeGridBoard() {
+    public void initializeView() {
         assert game != null;
-        gridBoard = new GridBoard(game.getGrid(), this::cellSelection);
+        initializeGridBoard();
+        initializeStatisticsBoard();
+        updateGrid(game.getGrid());
+    }
+
+    /**
+     * @pre game != null => initializeData must be called before this
+     */
+    private void initializeGridBoard() {
+        assert game != null;
+        gridBoard = new GridBoard(game.getGrid().getDimension(), this::cellSelection);
         gridBoard.setAlignment(Pos.CENTER);
         stackAnchorGrid.getChildren().add(gridBoard);
     }
@@ -63,7 +71,7 @@ public class GameViewController implements GameObserver, GridObserver{
     /**
      * @pre game != null => initializeData must be called before this
      */
-    public void initializeStatisticsBoard() {
+    private void initializeStatisticsBoard() {
         assert game != null;
         statistics = new GameStatistics(game.getLobby(), this::setWinner);
         statistics.setAlignment(Pos.CENTER);
@@ -104,8 +112,8 @@ public class GameViewController implements GameObserver, GridObserver{
     }
 
     @Override
-    public void notifyUpdate() {
+    public void updateGrid(Grid grid) {
         statistics.drawScores(0);
-        gridBoard.draw();
+        gridBoard.draw(grid);
     }
 }

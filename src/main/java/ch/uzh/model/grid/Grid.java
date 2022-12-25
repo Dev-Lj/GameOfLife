@@ -136,7 +136,7 @@ public class Grid {
 
     private void notifyObservers() {
         for (GridObserver gridObserver : observers) {
-            gridObserver.notifyUpdate();
+            gridObserver.updateGrid(this);
         }
     }
 
