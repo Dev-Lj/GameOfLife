@@ -1,9 +1,27 @@
 package ch.uzh.model.lobby;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Player implements LobbyPlayer {
     private String color;
     private String name;
     private int amountOfCells;
+
+    public static final List<String> PLAYERCOLORS = Collections.unmodifiableList(
+        new ArrayList<String>() {
+            {
+                add("red");
+                add("blue");
+                add("green");
+                add("yellow");
+                add("orange");
+                add("purple");
+                add("black");
+                add("white");
+            }
+        });
 
     public void setAmountOfCells(int amountOfCells) {
         this.amountOfCells = amountOfCells;

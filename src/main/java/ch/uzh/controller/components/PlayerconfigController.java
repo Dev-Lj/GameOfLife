@@ -3,7 +3,6 @@ package ch.uzh.controller.components;
 import java.net.URL;
 import java.util.ResourceBundle;
 import ch.uzh.model.lobby.Player;
-import ch.uzh.model.lobby.PlayerConfig;
 import ch.uzh.view.components.PlayerConfigFields;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +16,7 @@ public class PlayerconfigController implements Initializable {
     public PlayerconfigController(int id) {
         this.id = id;
         player = new Player();
-        pc = new PlayerConfigFields(PlayerConfig.COLORS, "Player " + id);
+        pc = new PlayerConfigFields(Player.PLAYERCOLORS, "Player " + id);
     }
 
     @FXML

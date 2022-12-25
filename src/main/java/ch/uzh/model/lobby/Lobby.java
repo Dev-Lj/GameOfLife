@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Lobby {
+    public static int DEFAULT_NR_PLAYERS = 2;
+
     private LobbyPlayer currentPlayer;
     private final List<LobbyPlayer> players;
     private int playerCounter = 1;
@@ -25,7 +27,7 @@ public class Lobby {
     }
 
     public void nextPlayer() {
-        int nextI = (playerCounter + 1) % PlayerConfig.NR_PLAYERS;
+        int nextI = (playerCounter + 1) % players.size();
         this.playerCounter = nextI;
         this.currentPlayer = players.get(this.playerCounter);
     }
@@ -34,6 +36,7 @@ public class Lobby {
         int uniqueNames = players.stream().map(p -> p.getName()).distinct().toArray().length;
         int uniqueColors = players.stream().map(p -> p.getColor()).distinct().toArray().length;
 
+        // For more precision, an if combining those two possible exceptions could be added
         // In a similar way, we could also check which LobbyPlayers are not unique, but since currently the playerConfigField do not get highlighted, I do not see the purpose for this.
         if (uniqueNames != players.size()) {
             throw new IllegalArgumentException("Duplicate names");
