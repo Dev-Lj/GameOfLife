@@ -113,7 +113,7 @@ public class GameViewController implements GameObserver, GridObserver{
 
     @Override
     public void updateGrid(Grid grid) {
-        statistics.drawScores(0);
+        statistics.drawScores(grid.getGeneration());
         gridBoard.draw(grid);
     }
 }

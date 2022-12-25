@@ -7,7 +7,8 @@ import ch.uzh.model.lobby.LobbyPlayer;
 public class Grid {
     private static final int GRID_SIZE = 4;
     private LobbyPlayer[][] grid = new LobbyPlayer[GRID_SIZE][GRID_SIZE];
-    List<GridObserver> observers = new ArrayList<>();
+    private int generation = 0;
+    private List<GridObserver> observers = new ArrayList<>();
 
     /**
      * @pre coordinates not out of bounds of grid
@@ -127,6 +128,7 @@ public class Grid {
             }
         }
         grid = newGrid;
+        this.generation++;
         notifyObservers();
     }
 
@@ -156,6 +158,10 @@ public class Grid {
 
     public int getDimension() {
         return grid.length;
+    }
+
+    public int getGeneration() {
+        return generation;
     }
 
     // JUST FOR DEBUGGING PURPOSES
