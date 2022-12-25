@@ -7,5 +7,7 @@ public interface LobbyPlayer {
 
     public int getAmountOfCells();
 
-    public void setAmountOfCells(int amountOfCells);
+    public void decreaseAmountOfCells();
+
+    public void increaseAmountOfCells();
 }

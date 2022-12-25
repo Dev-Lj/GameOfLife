@@ -14,14 +14,13 @@ public class Grid {
      * */
     public void killCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
-        LobbyPlayer cell = grid[x][y];
-        if (cell == null) {
+        if (!isAlive(x, y)) {
             throw new InvalidCellException("Cell is already dead");
         }
-        if (cell.equals(currentPlayer)) {
+        if (grid[x][y].equals(currentPlayer)) {
             throw new InvalidCellException("You can not kill your own cells");
         }
-        grid[x][y] = null;
+        setDead(grid, x, y);
         notifyObservers();
     }
 
@@ -30,10 +29,10 @@ public class Grid {
      * */
     public void plantCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
-        if(grid[x][y] != null) {
+        if(isAlive(x, y)) {
             throw new InvalidCellException("Cell is already alive");
         }
-        grid[x][y] = currentPlayer;
+        setAlive(grid, x, y, currentPlayer);
         notifyObservers();
     }
 
@@ -43,6 +42,29 @@ public class Grid {
     private boolean isAlive(int x, int y) {
         assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
         return grid[x][y] != null;
+    }
+
+    /**
+     * 
+     * @pre coordinates not out of bounds of grid and cell is alive
+     */
+    private void setDead(LobbyPlayer[][] grid, int x, int y) {
+        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && grid[x][y] != null;
+        LobbyPlayer owner = grid[x][y];
+        grid[x][y] = null;
+        owner.decreaseAmountOfCells();
+        System.out.println(String.format("%s: %d cells", owner.getName(), owner.getAmountOfCells()));
+    }
+
+    /**
+     * 
+     * @pre coordinates not out of bounds of grid and cell is dead
+     */
+    private void setAlive(LobbyPlayer[][] grid, int x, int y, LobbyPlayer owner) {
+        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && grid[x][y] == null;
+        grid[x][y] = owner;
+        owner.increaseAmountOfCells();
+        System.out.println(String.format("%s: %d cells", owner.getName(), owner.getAmountOfCells()));
     }
 
     /**
@@ -94,12 +116,12 @@ public class Grid {
                 int aliveNeighbours = getNumberOfAliveNeighbours(x, y);
                 if (isAlive(x, y)) {
                     if (aliveNeighbours != 2 && aliveNeighbours != 3) {
-                        newGrid[x][y] = null;
+                        setDead(newGrid, x, y);
                     }
                 } else {
                     if(aliveNeighbours == 3) {
                         LobbyPlayer mostNeighbourPlayer = getMostNeighbourPlayer(x, y);
-                        newGrid[x][y] = mostNeighbourPlayer;
+                        setAlive(newGrid, x, y, mostNeighbourPlayer);
                     }
                 }
             }
@@ -122,8 +144,7 @@ public class Grid {
         String[][] drawableGrid = new String[grid.length][grid.length];
         for (int x = 0; x < drawableGrid.length; x++) {
             for (int y = 0; y < drawableGrid.length; y++) {
-                // TODO Null check bad, replace Player[][] with Optional<Player>[][]
-                if (grid[x][y] == null) {
+                if (!isAlive(x, y)) {
                     drawableGrid[x][y] = "transparent";
                 } else {
                     drawableGrid[x][y] = grid[x][y].getColor();

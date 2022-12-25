@@ -7,7 +7,7 @@ import java.util.List;
 public class Player implements LobbyPlayer {
     private String color;
     private String name;
-    private int amountOfCells;
+    private int amountOfCells = 0;
 
     public static final List<String> PLAYERCOLORS = Collections.unmodifiableList(
         new ArrayList<String>() {
@@ -22,10 +22,6 @@ public class Player implements LobbyPlayer {
                 add("white");
             }
         });
-
-    public void setAmountOfCells(int amountOfCells) {
-        this.amountOfCells = amountOfCells;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -58,5 +54,13 @@ public class Player implements LobbyPlayer {
         } else if (name == null || name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("Name is missing");
         }
+    }
+
+    public void decreaseAmountOfCells() {
+        this.amountOfCells--;
+    }
+
+    public void increaseAmountOfCells() {
+        this.amountOfCells++;
     }
 }
