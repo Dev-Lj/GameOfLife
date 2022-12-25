@@ -13,7 +13,7 @@ public class GameViewControllerTest {
     void testInitializeData() throws Exception {
         GameViewController controller = new GameViewController();
         
-        MockGame mockGame = new MockGame(new MockGrid(), MockLobby.createDefaultMock());
+        MockGame mockGame = new MockGame(new MockGrid(4), MockLobby.createDefaultMock());
 
         controller.initializeData(mockGame);
         assertTrue(mockGame.isObserverAttached());
