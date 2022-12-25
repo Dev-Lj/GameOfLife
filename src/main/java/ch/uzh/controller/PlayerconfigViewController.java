@@ -58,7 +58,7 @@ public class PlayerconfigViewController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("GameView.fxml"));
                 Parent p = fxmlLoader.load();
                 GameViewController gController = fxmlLoader.getController();
-                Game game = new Game(new Grid(), lobby);
+                Game game = new Game(new Grid(20), lobby);
                 // TODO handle possible exception
                 gController.initializeData(game);
                 gController.initializeView();

@@ -63,7 +63,7 @@ public class GameViewController implements GameObserver, GridObserver{
      */
     private void initializeGridBoard() {
         assert game != null;
-        gridBoard = new GridBoard(game.getGrid().getDimension(), this::cellSelection);
+        gridBoard = new GridBoard(game.getGrid().getSize(), this::cellSelection);
         gridBoard.setAlignment(Pos.CENTER);
         stackAnchorGrid.getChildren().add(gridBoard);
     }

@@ -5,16 +5,21 @@ import java.util.*;
 import ch.uzh.model.lobby.LobbyPlayer;
 
 public class Grid {
-    private static final int GRID_SIZE = 4;
-    private LobbyPlayer[][] grid = new LobbyPlayer[GRID_SIZE][GRID_SIZE];
+    private final int size;
+    private LobbyPlayer[][] grid;
     private int generation = 0;
     private List<GridObserver> observers = new ArrayList<>();
+
+    public Grid (int size) {
+        this.size = size;
+        this.grid = new LobbyPlayer[size][size];
+    }
 
     /**
      * @pre coordinates not out of bounds of grid
      * */
     public void killCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
-        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         if (!isAlive(x, y)) {
             throw new InvalidCellException("Cell is already dead");
         }
@@ -29,7 +34,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     public void plantCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
-        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         if(isAlive(x, y)) {
             throw new InvalidCellException("Cell is already alive");
         }
@@ -41,7 +46,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     private boolean isAlive(int x, int y) {
-        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         return grid[x][y] != null;
     }
 
@@ -50,7 +55,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid and cell is alive
      */
     private void setDead(LobbyPlayer[][] grid, int x, int y) {
-        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && grid[x][y] != null;
+        assert x >= 0 && x < size && y >= 0 && y < size && grid[x][y] != null;
         LobbyPlayer owner = grid[x][y];
         grid[x][y] = null;
         owner.decreaseAmountOfCells();
@@ -62,7 +67,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid and cell is dead
      */
     private void setAlive(LobbyPlayer[][] grid, int x, int y, LobbyPlayer owner) {
-        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && grid[x][y] == null;
+        assert x >= 0 && x < size && y >= 0 && y < size && grid[x][y] == null;
         grid[x][y] = owner;
         owner.increaseAmountOfCells();
         System.out.println(String.format("%s: %d cells", owner.getName(), owner.getAmountOfCells()));
@@ -72,11 +77,11 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     private int getNumberOfAliveNeighbours(int x, int y) {
-        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         int aliveNeighbours = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if(x + i >= 0 && x + i < GRID_SIZE && y + j >= 0 && y + j < GRID_SIZE && !(i == 0 && j == 0) && isAlive(x + i, y + j)) {
+                if(x + i >= 0 && x + i < size && y + j >= 0 && y + j < size && !(i == 0 && j == 0) && isAlive(x + i, y + j)) {
                     aliveNeighbours++;
                 }
             }
@@ -88,11 +93,11 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     private LobbyPlayer getMostNeighbourPlayer(int x, int y) {
-        assert x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         Map<LobbyPlayer, Integer> neighbourFrequencies = new HashMap<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if(x + i >= 0 && x + i < GRID_SIZE && y + j >= 0 && y + j < GRID_SIZE && !(i == 0 && j == 0) && isAlive(x + i, y + j)) {
+                if(x + i >= 0 && x + i < size && y + j >= 0 && y + j < size && !(i == 0 && j == 0) && isAlive(x + i, y + j)) {
                     LobbyPlayer player = grid[x + i][y + j];
                     Integer count = neighbourFrequencies.get(player);
                     neighbourFrequencies.put(player, count != null ? count + 1 : 1);
@@ -104,7 +109,7 @@ public class Grid {
 
     private LobbyPlayer[][] cloneGrid() {
         LobbyPlayer[][] newGrid = grid.clone();
-        for(int row = 0; row < GRID_SIZE; row++) {
+        for(int row = 0; row < size; row++) {
             newGrid[row] = grid[row].clone();
         }
         return newGrid;
@@ -112,8 +117,8 @@ public class Grid {
 
     public void computeGeneration() {
         LobbyPlayer[][] newGrid = cloneGrid();
-        for(int x = 0; x < GRID_SIZE; x++) {
-            for (int y = 0; y < GRID_SIZE; y++) {
+        for(int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
                 int aliveNeighbours = getNumberOfAliveNeighbours(x, y);
                 if (isAlive(x, y)) {
                     if (aliveNeighbours != 2 && aliveNeighbours != 3) {
@@ -156,8 +161,8 @@ public class Grid {
         return drawableGrid;
     }
 
-    public int getDimension() {
-        return grid.length;
+    public int getSize() {
+        return size;
     }
 
     public int getGeneration() {

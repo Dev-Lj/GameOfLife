@@ -7,22 +7,22 @@ import javafx.scene.shape.Rectangle;
 
 public class GridBoard extends GridPane{
     
-    private final int dimension;
+    private final int size;
     private final CellSelectionStrategy cellSelectionStrategy;
     private Rectangle[][] cells;
 
-    public GridBoard(int dimension, CellSelectionStrategy cellSelectionStrategy) {
-        this.dimension = dimension;
+    public GridBoard(int size, CellSelectionStrategy cellSelectionStrategy) {
+        this.size = size;
         this.cellSelectionStrategy = cellSelectionStrategy;
-        this.cells = new Rectangle[dimension][dimension];
+        this.cells = new Rectangle[size][size];
         initializeGridBoard();
     }
 
     private void initializeGridBoard() {
         // TODO scale size
         int size = 20;
-        for (int x = 0; x < dimension; x++) {
-            for (int y = 0; y < dimension; y++) {
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
                 Rectangle rec = new Rectangle();
                 rec.setWidth(size);
                 rec.setHeight(size);
@@ -37,10 +37,10 @@ public class GridBoard extends GridPane{
 
     /**
      * 
-     * @pre grid.getDimension() == this.dimension
+     * @pre grid.getDimension() == this.size
      */
     public void draw(Grid grid) {
-        assert grid.getDimension() == this.dimension;
+        assert grid.getSize() == this.size;
         String[][] drawableGrid = grid.getDrawableGrid();
         for (int x = 0; x < drawableGrid.length; x++) {
             for (int y = 0; y < drawableGrid.length; y++) {
