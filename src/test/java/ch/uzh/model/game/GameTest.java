@@ -21,7 +21,7 @@ public class GameTest {
     private Game game;
     
     public GameTest() {
-        mockGrid = new MockGrid();
+        mockGrid = new MockGrid(4);
         p1 = new MockLobbyPlayer("p1", "red");
         p2 = new MockLobbyPlayer("p2", "blue");
         stubLobby = new Lobby(p1, p2);

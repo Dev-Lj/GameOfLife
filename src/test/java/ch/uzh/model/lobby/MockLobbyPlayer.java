@@ -28,13 +28,13 @@ public class MockLobbyPlayer implements LobbyPlayer{
     }
 
     @Override
-    public void setAmountOfCells(int amountOfCells) {
-        this.amountOfCells = amountOfCells;
+    public void decreaseAmountOfCells() {
+        this.amountOfCells--;
     }
 
     @Override
-    public boolean validPlayer() {
-        return true;
+    public void increaseAmountOfCells() {
+        this.amountOfCells--;
     }
     
 }
