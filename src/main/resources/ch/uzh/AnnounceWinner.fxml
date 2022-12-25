@@ -33,16 +33,16 @@
    <bottom>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="restart_game" layoutX="238.0" layoutY="100.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" style="#D7F5E9: #D7F5E9;" text="Restart Game">
-               <font>
-                  <Font name="AppleGothic Regular" size="15.0" />
-               </font>
-            </Button>
             <Label layoutX="232.0" text="has won the Game!">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
+            <Button id="restart_game" layoutX="238.0" layoutY="100.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" style="#D7F5E9: #D7F5E9;" text="Restart Game">
+               <font>
+                  <Font name="AppleGothic Regular" size="15.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </bottom>
