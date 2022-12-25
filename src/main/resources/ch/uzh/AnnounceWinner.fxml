@@ -22,7 +22,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="181.0" layoutY="39.0" text="INSERT PLAYER NAME">
+            <Label fx:id="winner_name" layoutX="181.0" layoutY="39.0" text="INSERT PLAYER NAME">
                <font>
                   <Font size="24.0" />
                </font>
