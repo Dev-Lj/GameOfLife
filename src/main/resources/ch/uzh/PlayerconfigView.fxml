@@ -17,7 +17,8 @@
                   <Font name="Arial" size="13.0" />
                </font>
                </Label>
-         </children></VBox>
+         </children>
+      </VBox>
    </center>
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -25,7 +26,8 @@
             <Button fx:id="btnNext" mnemonicParsing="false" onAction="#goNext" style="#D7F5E9: #D7F5E9;" text="Play Game">
                <font>
                   <Font size="20.0" />
-               </font></Button>
+               </font>
+            </Button>
          </children>
       </HBox>
    </bottom>
