@@ -27,7 +27,7 @@ public class GameViewController implements GameObserver, GridObserver{
     @FXML private Label lblErrMsg;
     @FXML private StackPane stackAnchorGrid;
     @FXML private AnchorPane anchorStatistics;
-    @FXML private Label winner_name;
+
     private GridBoard gridBoard;
     private GameStatistics statistics;
 
@@ -73,15 +73,11 @@ public class GameViewController implements GameObserver, GridObserver{
     public void setWinner(LobbyPlayer winner) {
         // TODO proper winning screen
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("AnnounceWinner.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("WinnerView.fxml"));
             Parent p = fxmlLoader.load();
-            //Controller aController = fxmlLoader.getController();
-            winner_name.setText(winner.getName());
-            // TODO Get CURRENT stage to set scene
-            Stage winnerStage = new Stage();
-            winnerStage.setTitle("Conway's Game of Life");
-            winnerStage.setScene(new Scene(p, 800, 700));
-            winnerStage.show();
+            WinnerViewController wController = fxmlLoader.getController();
+            wController.setWinnerName(winner.getName());
+            anchorStatistics.getScene().setRoot(p);
         } catch (Exception e) {
             e.printStackTrace();
             //errorText.setText(e.getMessage());
