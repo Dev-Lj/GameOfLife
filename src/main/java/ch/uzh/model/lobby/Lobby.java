@@ -11,7 +11,7 @@ public class Lobby {
     /**
      * 
      * @param players
-     * @pre players != null && players.length >= 2 && player is valid
+     * @pre players != null && players.length >= 2 && players are valid
      */
     public Lobby(LobbyPlayer... players) {
         assert players != null && players.length >= 2;
@@ -30,21 +30,32 @@ public class Lobby {
         this.currentPlayer = players.get(this.playerCounter);
     }
 
-    private void validate() {
-        // TODO use highlevel methods instead of manually checking for duplicates
-        for (int i = 0; i < players.size(); i++) {
-            for (int j = i + 1; j < players.size(); j++) {
-                if (players.get(i).getColor().equals(players.get(j).getColor())) {
-                    throw new IllegalArgumentException(
-                            "Color of player " + (i + 1) + " and player " + (j + 1)
-                                    + " are the same, please choose different colors");
-                } else if (players.get(i).getName().equals(players.get(j).getName())) {
-                    throw new IllegalArgumentException(
-                            "Name of player " + (i + 1) + " and player " + (j + 1)
-                                    + " are the same, please choose different names");
-                }
-            }
+    private void validate() throws IllegalArgumentException{
+        int uniqueNames = players.stream().map(p -> p.getName()).distinct().toArray().length;
+        int uniqueColors = players.stream().map(p -> p.getColor()).distinct().toArray().length;
+
+        // In a similar way, we could also check which LobbyPlayers are not unique, but since currently the playerConfigField do not get highlighted, I do not see the purpose for this.
+        if (uniqueNames != players.size()) {
+            throw new IllegalArgumentException("Duplicate names");
         }
+
+        if (uniqueColors != players.size()) {
+            throw new IllegalArgumentException("Duplicate colors");
+        }
+
+        // for (int i = 0; i < players.size(); i++) {
+        //     for (int j = i + 1; j < players.size(); j++) {
+        //         if (players.get(i).getColor().equals(players.get(j).getColor())) {
+        //             throw new IllegalArgumentException(
+        //                     "Color of player " + (i + 1) + " and player " + (j + 1)
+        //                             + " are the same, please choose different colors");
+        //         } else if (players.get(i).getName().equals(players.get(j).getName())) {
+        //             throw new IllegalArgumentException(
+        //                     "Name of player " + (i + 1) + " and player " + (j + 1)
+        //                             + " are the same, please choose different names");
+        //         }
+        //     }
+        // }
     }
 
     // TODO there must be a more elegant solution
