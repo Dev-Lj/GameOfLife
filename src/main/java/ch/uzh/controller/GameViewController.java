@@ -103,8 +103,6 @@ public class GameViewController implements GameObserver, GridObserver{
     @Override
     public void nextPlayerTurn(LobbyPlayer currentPlayer) {
         lblCurrentPlayer.setText(currentPlayer.getName());
-        //TODO: Remove next line!
-        setWinner(currentPlayer);
     }
 
     @Override
