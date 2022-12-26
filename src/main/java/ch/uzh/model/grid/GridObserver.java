@@ -1,5 +1,5 @@
 package ch.uzh.model.grid;
 
 public interface GridObserver {
-    public void notifyUpdate();
+    public void updateGrid(Grid grid);
 }

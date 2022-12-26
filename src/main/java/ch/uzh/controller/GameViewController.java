@@ -1,13 +1,18 @@
 package ch.uzh.controller;
+
+import ch.uzh.App;
 import ch.uzh.model.game.Game;
 import ch.uzh.model.game.GameObserver;
+import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.GridObserver;
 import ch.uzh.model.grid.InvalidCellException;
 import ch.uzh.model.lobby.LobbyPlayer;
 import ch.uzh.view.components.GameStatistics;
 import ch.uzh.view.components.GridBoard;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -20,6 +25,7 @@ public class GameViewController implements GameObserver, GridObserver{
     @FXML private Label lblErrMsg;
     @FXML private StackPane stackAnchorGrid;
     @FXML private AnchorPane anchorStatistics;
+
     private GridBoard gridBoard;
     private GameStatistics statistics;
 
@@ -45,9 +51,19 @@ public class GameViewController implements GameObserver, GridObserver{
     /**
      * @pre game != null => initializeData must be called before this
      */
-    public void initializeGridBoard() {
+    public void initializeView() {
         assert game != null;
-        gridBoard = new GridBoard(game.getGrid(), this::cellSelection);
+        initializeGridBoard();
+        initializeStatisticsBoard();
+        updateGrid(game.getGrid());
+    }
+
+    /**
+     * @pre game != null => initializeData must be called before this
+     */
+    private void initializeGridBoard() {
+        assert game != null;
+        gridBoard = new GridBoard(game.getGrid().getSize(), this::cellSelection);
         gridBoard.setAlignment(Pos.CENTER);
         stackAnchorGrid.getChildren().add(gridBoard);
     }
@@ -55,7 +71,7 @@ public class GameViewController implements GameObserver, GridObserver{
     /**
      * @pre game != null => initializeData must be called before this
      */
-    public void initializeStatisticsBoard() {
+    private void initializeStatisticsBoard() {
         assert game != null;
         statistics = new GameStatistics(game.getLobby(), this::setWinner);
         statistics.setAlignment(Pos.CENTER);
@@ -63,8 +79,16 @@ public class GameViewController implements GameObserver, GridObserver{
     }
 
     public void setWinner(LobbyPlayer winner) {
-        // TODO proper winning screen
-        System.out.println(winner.getName());
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("WinnerView.fxml"));
+            Parent p = fxmlLoader.load();
+            WinnerViewController wController = fxmlLoader.getController();
+            wController.setWinnerName(winner.getName());
+            anchorStatistics.getScene().setRoot(p);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //errorText.setText(e.getMessage());
+        }
     }
 
     private void cellSelection(int x, int y) {
@@ -87,8 +111,8 @@ public class GameViewController implements GameObserver, GridObserver{
     }
 
     @Override
-    public void notifyUpdate() {
-        statistics.drawScores(0);
-        gridBoard.draw();
+    public void updateGrid(Grid grid) {
+        statistics.drawScores(grid.getGeneration());
+        gridBoard.draw(grid);
     }
 }

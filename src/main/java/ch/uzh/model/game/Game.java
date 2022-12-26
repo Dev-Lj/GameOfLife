@@ -9,8 +9,8 @@ import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
 
 enum PlayerMove {
-    KillCell("Click on an enemy cell to kill it", Grid::killCell),
-    PlantCell("Click on a dead cell to bring it to live", Grid::plantCell);
+    PlantCell("Click on a dead cell to bring it to live", Grid::plantCell),
+    KillCell("Click on an enemy cell to kill it", Grid::killCell);
 
     final String description;
     PlayerMoveFunction function;
@@ -54,22 +54,22 @@ public class Game {
      * Set stable initial pattern for both players
      * @param grid
      * @throws InvalidCellException
-     * @pre grid != null && grid.getDimension()>=4 && no moves have been made on grid yet
+     * @pre grid != null && grid.getSize()>=4 && no moves have been made on grid yet
      */
     private void setDefaultInitialGridPattern(Grid grid) throws InvalidCellException {
-        assert grid != null && grid.getDimension()>=4;
+        assert grid != null && grid.getSize()>=4;
         List<LobbyPlayer> players = lobby.getPlayers();
-        int halfLower = (int)grid.getDimension()/2;
+        int halfLower = (int)grid.getSize()/2;
         // pattern for player 1
         grid.plantCell(0, halfLower, players.get(0));
         grid.plantCell(0, halfLower - 1, players.get(0));
         grid.plantCell(1, halfLower, players.get(0));
         grid.plantCell(1, halfLower - 1, players.get(0));
         // pattern for player 2
-        grid.plantCell(grid.getDimension()-1, halfLower, players.get(1));
-        grid.plantCell(grid.getDimension()-1, halfLower - 1, players.get(1));
-        grid.plantCell(grid.getDimension()-2, halfLower, players.get(1));
-        grid.plantCell(grid.getDimension()-2, halfLower - 1, players.get(1));
+        grid.plantCell(grid.getSize()-1, halfLower, players.get(1));
+        grid.plantCell(grid.getSize()-1, halfLower - 1, players.get(1));
+        grid.plantCell(grid.getSize()-2, halfLower, players.get(1));
+        grid.plantCell(grid.getSize()-2, halfLower - 1, players.get(1));
     }
 
     public void playerCellSelection(int x, int y) throws InvalidCellException {

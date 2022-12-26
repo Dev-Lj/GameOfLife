@@ -1,18 +1,27 @@
 package ch.uzh.model.lobby;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Player implements LobbyPlayer {
     private String color;
     private String name;
-    private int amountOfCells;
-    private int playerId;
+    private int amountOfCells = 0;
 
-    public Player(int id) {
-        playerId = id;
-    }
-
-    public void setAmountOfCells(int amountOfCells) {
-        this.amountOfCells = amountOfCells;
-    }
+    public static final List<String> PLAYERCOLORS = Collections.unmodifiableList(
+        new ArrayList<String>() {
+            {
+                add("red");
+                add("blue");
+                add("green");
+                add("yellow");
+                add("orange");
+                add("purple");
+                add("black");
+                add("white");
+            }
+        });
 
     public void setName(String name) {
         this.name = name;
@@ -39,13 +48,19 @@ public class Player implements LobbyPlayer {
         return name;
     }
 
-    public boolean validPlayer() {
+    public void validate() throws IllegalArgumentException{
         if (color == null) {
-            throw new IllegalArgumentException("Color of player " + playerId + " is missing");
-        } else if (name == null || name.equals("")) {
-            throw new IllegalArgumentException("Name of player " + playerId + " is missing");
-        } else {
-            return true;
+            throw new IllegalArgumentException("Color is missing");
+        } else if (name == null || name.isEmpty() || name.isBlank()) {
+            throw new IllegalArgumentException("Name is missing");
         }
+    }
+
+    public void decreaseAmountOfCells() {
+        this.amountOfCells--;
+    }
+
+    public void increaseAmountOfCells() {
+        this.amountOfCells++;
     }
 }

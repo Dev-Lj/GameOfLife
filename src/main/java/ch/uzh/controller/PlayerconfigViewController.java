@@ -10,7 +10,6 @@ import ch.uzh.model.game.Game;
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
-import ch.uzh.model.lobby.PlayerConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,13 +27,11 @@ public class PlayerconfigViewController implements Initializable {
     @FXML
     private VBox vboxPlayerConfigList;
     private List<PlayerconfigController> playerInputControllers = new ArrayList<PlayerconfigController>();
-    private ArrayList<LobbyPlayer> players = new ArrayList<LobbyPlayer>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (int i = 0; i < PlayerConfig.NR_PLAYERS; i++) {
+        for (int i = 0; i < Lobby.DEFAULT_NR_PLAYERS; i++) {
             PlayerconfigController playerCont = new PlayerconfigController(i + 1);
-            players.add(playerCont.getPlayer());
             playerInputControllers.add(playerCont);
             vboxPlayerConfigList.getChildren().addAll(playerCont.getItem());
         }
@@ -47,20 +44,24 @@ public class PlayerconfigViewController implements Initializable {
         }
     }
 
+    private Lobby createLobby() throws IllegalArgumentException{
+         LobbyPlayer[] players = playerInputControllers.stream().map(input->input.getLobbyPlayer()).toArray(size->new LobbyPlayer[size]);
+        return new Lobby(players);
+    }
+
     @FXML
     public void goNext(ActionEvent event) {
         updatePlayers();
         try {
-            Lobby lobby = new Lobby(players);
+            Lobby lobby = createLobby();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("GameView.fxml"));
                 Parent p = fxmlLoader.load();
                 GameViewController gController = fxmlLoader.getController();
-                Game game = new Game(new Grid(), lobby);
+                Game game = new Game(new Grid(20), lobby);
                 // TODO handle possible exception
                 gController.initializeData(game);
-                gController.initializeGridBoard();
-                gController.initializeStatisticsBoard();
+                gController.initializeView();
                 Scene rootScene = ((Node) event.getSource()).getScene();
                 rootScene.setRoot(p);
             } catch (Exception e) {

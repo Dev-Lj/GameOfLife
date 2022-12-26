@@ -1,6 +1,11 @@
 package ch.uzh.model.grid;
 
 public class MockGrid extends Grid{
+
+    public MockGrid(int size) {
+        super(size);
+    }
+
     private boolean generationComputed = false;
     private boolean observerAttached = false;
 

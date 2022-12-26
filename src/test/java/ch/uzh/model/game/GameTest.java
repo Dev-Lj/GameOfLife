@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import ch.uzh.model.grid.MockGrid;
@@ -23,10 +21,10 @@ public class GameTest {
     private Game game;
     
     public GameTest() {
-        mockGrid = new MockGrid();
+        mockGrid = new MockGrid(4);
         p1 = new MockLobbyPlayer("p1", "red");
         p2 = new MockLobbyPlayer("p2", "blue");
-        stubLobby = new Lobby(new ArrayList<LobbyPlayer>(Arrays.asList(p1, p2)));
+        stubLobby = new Lobby(p1, p2);
         game = new Game(mockGrid, stubLobby);
     }
 
