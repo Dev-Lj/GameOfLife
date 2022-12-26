@@ -165,8 +165,12 @@ public class Grid {
         return generation;
     }
 
-    private LobbyPlayer[][] getGrid() {
-        return grid;
+    /**
+     * @pre coordinates not out of bounds of grid
+     * */
+    private LobbyPlayer getCell(int x, int y) {
+        // assert x >= 0 && x < size && y >= 0 && y < size;
+        return grid[x][y];
     }
 
     // JUST FOR DEBUGGING PURPOSES
