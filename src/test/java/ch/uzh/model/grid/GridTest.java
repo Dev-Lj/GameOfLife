@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
-    Grid grid = new Grid();
+    Grid grid = new Grid(4);
 
     @Test
     void testKillCell() {
