@@ -92,15 +92,11 @@ public class Grid {
         for(int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
                 int aliveNeighbours = getNumberOfAliveNeighbours(x, y);
-                if (isAlive(x, y)) {
-                    if (aliveNeighbours != 2 && aliveNeighbours != 3) {
-                        newGrid[x][y] = null;
-                    }
-                } else {
-                    if(aliveNeighbours == 3) {
-                        LobbyPlayer mostNeighbourPlayer = getMostNeighbourPlayer(x, y);
-                        newGrid[x][y] = mostNeighbourPlayer;
-                    }
+                if (isAlive(x, y) && aliveNeighbours != 2 && aliveNeighbours != 3) {
+                    newGrid[x][y] = null;
+                } else if(aliveNeighbours == 3) {
+                    LobbyPlayer mostNeighbourPlayer = getMostNeighbourPlayer(x, y);
+                    newGrid[x][y] = mostNeighbourPlayer;
                 }
             }
         }
@@ -122,8 +118,7 @@ public class Grid {
         String[][] drawableGrid = new String[grid.length][grid.length];
         for (int x = 0; x < drawableGrid.length; x++) {
             for (int y = 0; y < drawableGrid.length; y++) {
-                // TODO Null check bad, replace Player[][] with Optional<Player>[][]
-                if (grid[x][y] == null) {
+                if (isAlive(x, y)) {
                     drawableGrid[x][y] = "transparent";
                 } else {
                     drawableGrid[x][y] = grid[x][y].getColor();
@@ -136,37 +131,4 @@ public class Grid {
     public int getDimension() {
         return grid.length;
     }
-
-    // JUST FOR DEBUGGING PURPOSES
-    // public void printGrid() {
-    //     for (LobbyPlayer[] gridRow : grid) {
-    //         for (LobbyPlayer player : gridRow) {
-    //             String playerName = "null";
-    //             if (player != null) {
-    //                 playerName = player.getName();
-    //             }
-    //             System.out.print(playerName + "\t");
-    //         }
-    //         System.out.println();
-    //     }
-    //     System.out.println("-------------");
-    // }
-
-    // // JUST FOR DEBUGGING PURPOSES
-    // public static void main(String[] args) throws InvalidCellException {
-    //     LobbyPlayer p1 = new Player();
-    //     p1.setName(" p1 ");
-    //     LobbyPlayer p2 = new Player();
-    //     p2.setName(" p2 ");
-    //     Grid g = new Grid();
-
-    //     g.plantCell(0, 0, p1);
-    //     g.plantCell(0, 1, p1);
-    //     g.plantCell(0, 2, p2);
-    //     g.printGrid();
-    //     g.computeGeneration();
-    //     g.printGrid();
-    //     g.computeGeneration();
-    //     g.printGrid();
-    // }
 }
