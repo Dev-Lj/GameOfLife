@@ -12,14 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class GameStatistics extends VBox{
-    private final Lobby lobby;
-    private final Consumer<LobbyPlayer> winnerConsumer;
-
-    public GameStatistics (Lobby lobby, Consumer<LobbyPlayer> winnerConsumer) {
-        this.lobby = lobby;
-        this.winnerConsumer = winnerConsumer;
-    }
-
     private static HBox getPlayerStatisticsEntry(LobbyPlayer player) {
         HBox entry = new HBox();
         Rectangle rec = new Rectangle();
@@ -31,14 +23,10 @@ public class GameStatistics extends VBox{
         return entry;
     }
 
-    public void drawScores(int generation) {
+    public void drawScores(int generation, Lobby lobby) {
         getChildren().clear();
         getChildren().add(new Label(String.format("Generation: %d", generation)));
         for (LobbyPlayer player : lobby.getPlayers()) {
-            if (player.getAmountOfCells() == 0) {
-                lobby.nextPlayer();
-                winnerConsumer.accept(lobby.getCurrentPlayer());
-            }
             getChildren().add(getPlayerStatisticsEntry(player));
         }
         

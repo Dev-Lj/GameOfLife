@@ -2,6 +2,8 @@ package ch.uzh.model.lobby;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Lobby {
     public static int DEFAULT_NR_PLAYERS = 2;
@@ -9,6 +11,7 @@ public class Lobby {
     private LobbyPlayer currentPlayer;
     private final List<LobbyPlayer> players;
     private int playerCounter = 1;
+    private Optional<LobbyPlayer> winner;
 
     /**
      * 
@@ -18,6 +21,7 @@ public class Lobby {
     public Lobby(LobbyPlayer... players) {
         assert players != null && players.length >= 2;
         this.players = Arrays.asList(players);
+        this.winner = Optional.empty();
         nextPlayer();
         validate();
     }
@@ -30,6 +34,26 @@ public class Lobby {
         int nextI = (playerCounter + 1) % players.size();
         this.playerCounter = nextI;
         this.currentPlayer = players.get(this.playerCounter);
+    }
+
+    public void checkForWinner() {
+        List<LobbyPlayer> possibleWinners = this.players.stream().filter(p->p.getAmountOfCells()!=0).collect(Collectors.toList());
+        if (possibleWinners.size() == 1) {
+            this.winner = Optional.of(possibleWinners.get(0));
+        }
+    }
+
+    public boolean hasWinner() {
+        return winner.isPresent();
+    }
+
+    /**
+     * 
+     * @pre this.hasWinner()
+     */
+    public LobbyPlayer getWinner() {
+        assert this.hasWinner();
+        return winner.get();
     }
 
     private void validate() throws IllegalArgumentException{

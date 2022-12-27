@@ -73,7 +73,7 @@ public class GameViewController implements GameObserver, GridObserver{
      */
     private void initializeStatisticsBoard() {
         assert game != null;
-        statistics = new GameStatistics(game.getLobby(), this::setWinner);
+        statistics = new GameStatistics();
         statistics.setAlignment(Pos.CENTER);
         anchorStatistics.getChildren().add(statistics);
     }
@@ -112,7 +112,8 @@ public class GameViewController implements GameObserver, GridObserver{
 
     @Override
     public void updateGrid(Grid grid) {
-        statistics.drawScores(grid.getGeneration());
+        statistics.drawScores(grid.getGeneration(), game.getLobby());
         gridBoard.draw(grid);
+        game.checkForWinner(this::setWinner);
     }
 }

@@ -2,6 +2,7 @@ package ch.uzh.model.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import ch.uzh.model.grid.Grid;
 import ch.uzh.model.grid.InvalidCellException;
@@ -75,6 +76,13 @@ public class Game {
     public void playerCellSelection(int x, int y) throws InvalidCellException {
         nextMove.function.execute(grid, x, y, lobby.getCurrentPlayer());
         calculateNextMove();
+    }
+
+    public void checkForWinner(Consumer<LobbyPlayer> winnerConsumer) {
+        lobby.checkForWinner();
+        if (lobby.hasWinner()) {
+            winnerConsumer.accept(lobby.getWinner());
+        }
     }
 
     private void calculateNextMove() {
