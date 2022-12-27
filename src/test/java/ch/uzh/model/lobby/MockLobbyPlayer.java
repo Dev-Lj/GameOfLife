@@ -34,7 +34,7 @@ public class MockLobbyPlayer implements LobbyPlayer{
 
     @Override
     public void increaseAmountOfCells() {
-        this.amountOfCells--;
+        this.amountOfCells++;
     }
     
 }

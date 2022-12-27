@@ -122,7 +122,7 @@ public class Grid {
                 int aliveNeighbours = getNumberOfAliveNeighbours(x, y);
                 if (isAlive(x, y) && aliveNeighbours != 2 && aliveNeighbours != 3) {
                     setDead(newGrid, x, y);
-                } else if(aliveNeighbours == 3) {
+                } else if(!isAlive(x, y) && aliveNeighbours == 3) {
                     LobbyPlayer mostNeighbourPlayer = getMostNeighbourPlayer(x, y);
                     setAlive(newGrid, x, y, mostNeighbourPlayer);
                 }
@@ -174,7 +174,7 @@ public class Grid {
     }
 
     // JUST FOR DEBUGGING PURPOSES
-    // public void printGrid() {
+    // public void printGrid(LobbyPlayer[][] grid) {
     //     for (LobbyPlayer[] gridRow : grid) {
     //         for (LobbyPlayer player : gridRow) {
     //             String playerName = "null";

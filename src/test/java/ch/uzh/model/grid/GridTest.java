@@ -1,6 +1,7 @@
 package ch.uzh.model.grid;
 
 import ch.uzh.model.lobby.LobbyPlayer;
+import ch.uzh.model.lobby.MockLobbyPlayer;
 import ch.uzh.model.lobby.Player;
 import org.junit.jupiter.api.Test;
 
@@ -105,6 +106,22 @@ class GridTest {
         assertEquals(getCell(SIZE-2, SIZE-1), p1);
         assertEquals(getCell(SIZE-1, SIZE-2), p2);
         assertEquals(getCell(SIZE-2, SIZE-2), p1);
+    }
+
+    @Test
+    void testComputeGeneration_fiveSquares() throws InvalidCellException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+        int halfLower = (int)grid.getSize()/2;
+        MockLobbyPlayer p = new MockLobbyPlayer("test", "red");
+        // pattern for player 1
+        grid.plantCell(0, halfLower, p);
+        grid.plantCell(0, halfLower - 1, p);
+        grid.plantCell(1, halfLower, p);
+        grid.plantCell(1, halfLower - 1, p);
+        grid.plantCell(2, halfLower - 1, p);
+        assertEquals(5, p.getAmountOfCells());
+
+        grid.computeGeneration();
+        assertEquals(5, p.getAmountOfCells());
     }
 
     @Test
