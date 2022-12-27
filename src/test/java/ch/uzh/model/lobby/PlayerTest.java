@@ -1,3 +1,4 @@
+/*
 package ch.uzh.model.lobby;
 
 import org.junit.jupiter.api.Test;
@@ -130,3 +131,4 @@ public class PlayerTest {
     }
 
 }
+*/

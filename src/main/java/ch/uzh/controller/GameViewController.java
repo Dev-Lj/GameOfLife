@@ -79,7 +79,6 @@ public class GameViewController implements GameObserver, GridObserver{
     }
 
     public void setWinner(LobbyPlayer winner) {
-        // TODO proper winning screen
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("WinnerView.fxml"));
             Parent p = fxmlLoader.load();
