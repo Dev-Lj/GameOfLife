@@ -1,4 +1,3 @@
-/*
 package ch.uzh.model.lobby;
 
 import org.junit.jupiter.api.Test;
@@ -35,6 +34,32 @@ public class PlayerTest {
         Player player = new Player();
         player.setColor("red");
         player.setName("");
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    player.validate();
+                });
+        assertEquals("Name is missing", exception.getMessage());
+    }
+
+    @Test
+    public void testValidPlayerNameNull() {
+        Player player = new Player();
+        player.setColor("red");
+        player.setName(null);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    player.validate();
+                });
+        assertEquals("Name is missing", exception.getMessage());
+    }
+
+    @Test
+    public void testValidPlayerNameBlank() {
+        Player player = new Player();
+        player.setColor("red");
+        player.setName("   ");
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> {
@@ -131,4 +156,3 @@ public class PlayerTest {
     }
 
 }
-*/
