@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -25,11 +26,17 @@
       <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane fx:id="anchorStatistics" prefHeight="200.0" prefWidth="200.0" />
-            <StackPane fx:id="stackAnchorGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <StackPane fx:id="stackAnchorGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></StackPane>
          </children>
       </HBox>
    </center>
    <bottom>
-      <Label fx:id="lblErrMsg" textFill="RED" BorderPane.alignment="CENTER" />
+      <Label fx:id="lblErrMsg" textFill="RED" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></Label>
    </bottom>
 </BorderPane>
