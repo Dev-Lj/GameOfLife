@@ -1,119 +1,140 @@
-/*
 package ch.uzh.model.lobby;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LobbyTest {
-    public ArrayList<Player> createPlayerlist() {
-        Player player1 = new Player(1);
-        Player player2 = new Player(1);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(player1);
-        players.add(player2);
-        return players;
-    }
 
-    public ArrayList<LobbyPlayer> createCorrectList() {
-        ArrayList<Player> players = createPlayerlist();
-        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
-        players.get(0).setName("pl1");
-        players.get(1).setName("pl2");
-        players.get(0).setColor("green");
-        players.get(1).setColor("red");
-        for (Player player : players) {
-            lobbyPlayers.add(player);
-        }
-        return lobbyPlayers;
-    }
-
-    @Test
-    public void testLobbyPlayerNull() {
-        ArrayList<Player> players = createPlayerlist();
-        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
-        for (Player player : players) {
-            lobbyPlayers.add(player);
-        }
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    new Lobby(lobbyPlayers);
-                });
-        assertEquals("Plz check if the players have color and name select/ filled out", exception.getMessage());
-    }
-
-    @Test
-    public void testLobbyPlayerSameColor() {
-        ArrayList<Player> players = createPlayerlist();
-        for (Player pl : players) {
-            pl.setColor("red");
-        }
-        players.get(0).setName("pl1");
-        players.get(1).setName("pl2");
-        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
-        for (Player player : players) {
-            lobbyPlayers.add(player);
-        }
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    new Lobby(lobbyPlayers);
-                });
-        assertEquals("Name or collor does not differ, plz choose different names and colors", exception.getMessage());
+    private Lobby createCorrectLobby() {
+        MockLobbyPlayer pl1 = new MockLobbyPlayer("pl1", "blue");
+        MockLobbyPlayer pl2 = new MockLobbyPlayer("pl2", "red");
+        LobbyPlayer[] plList = new LobbyPlayer[2];
+        plList[0] = pl1;
+        plList[1] = pl2;
+        Lobby lob = new Lobby(plList);
+        return lob;
     }
 
     @Test
     public void testLobbyPlayerSameName() {
-        ArrayList<Player> players = createPlayerlist();
-        for (Player pl : players) {
-            pl.setName("pl1");
-        }
-        players.get(0).setColor("green");
-        players.get(1).setColor("red");
-        ArrayList<LobbyPlayer> lobbyPlayers = new ArrayList<LobbyPlayer>();
-        for (Player player : players) {
-            lobbyPlayers.add(player);
-        }
+        MockLobbyPlayer pl1 = new MockLobbyPlayer("pl1", "red");
+        MockLobbyPlayer pl2 = new MockLobbyPlayer("pl1", "blue");
+        LobbyPlayer[] plList = new LobbyPlayer[2];
+        plList[0] = pl1;
+        plList[1] = pl2;
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-                    new Lobby(lobbyPlayers);
+                    new Lobby(plList);
                 });
-        assertEquals("Name or collor does not differ, plz choose different names and colors", exception.getMessage());
+        assertEquals("Duplicate names", exception.getMessage());
+    }
+
+    @Test
+    public void testLobbyPlayerOnePlayer() {
+        MockLobbyPlayer pl1 = new MockLobbyPlayer("pl1", "red");
+        LobbyPlayer[] plList = new LobbyPlayer[2];
+        plList[0] = pl1;
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    new Lobby(plList);
+                });
+    }
+
+    @Test
+    public void testLobbyPlayerOnePlayerNull() {
+        MockLobbyPlayer pl1 = null;
+        MockLobbyPlayer pl2 = new MockLobbyPlayer("pl1", "red");
+        LobbyPlayer[] plList = new LobbyPlayer[2];
+        plList[0] = pl1;
+        plList[1] = pl2;
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    new Lobby(plList);
+                });
+    }
+
+    @Test
+    public void testLobbyPlayerTwoPlayerNull() {
+        MockLobbyPlayer pl1 = null;
+        MockLobbyPlayer pl2 = null;
+        LobbyPlayer[] plList = new LobbyPlayer[2];
+        plList[0] = pl1;
+        plList[1] = pl2;
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    new Lobby(plList);
+                });
+    }
+
+    @Test
+    public void testLobbyPlayerOnlyOnePlayerNull() {
+        MockLobbyPlayer pl1 = null;
+        LobbyPlayer[] plList = new LobbyPlayer[2];
+        plList[0] = pl1;
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    new Lobby(plList);
+                });
+    }
+
+    @Test
+    public void testLobbyPlayerSameColor() {
+        MockLobbyPlayer pl1 = new MockLobbyPlayer("pl12", "red");
+        MockLobbyPlayer pl2 = new MockLobbyPlayer("pl1", "red");
+        LobbyPlayer[] plList = new LobbyPlayer[2];
+        plList[0] = pl1;
+        plList[1] = pl2;
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new Lobby(plList);
+                });
+        assertEquals("Duplicate colors", exception.getMessage());
     }
 
     @Test
     public void testLobyCreationCorrect() {
-        Lobby lob = new Lobby(createCorrectList());
-        assertEquals(Lobby.class, lob.getClass());
+        assertDoesNotThrow(() -> createCorrectLobby());
+    }
+
+    @Test
+    public void testLobbyPlayerGetPlayers() {
+        Lobby lob = createCorrectLobby();
+        assertEquals("pl1", lob.getPlayers().get(0).getName());
+        assertEquals(2, lob.getPlayers().size());
     }
 
     @Test
     public void testCurrentPlayer() {
-        ArrayList<LobbyPlayer> players = createCorrectList();
-        Lobby lob = new Lobby(players);
-        assertEquals("pl1", lob.getCurrentPlayer().getName());
+        assertEquals("pl1", createCorrectLobby().getCurrentPlayer().getName());
     }
 
     @Test
     public void testCurrentNextPlayer() {
-        ArrayList<LobbyPlayer> players = createCorrectList();
-        Lobby lob = new Lobby(players);
+        Lobby lob = createCorrectLobby();
         lob.nextPlayer();
         assertEquals("pl2", lob.getCurrentPlayer().getName());
     }
 
     @Test
     public void testCurrentNextPlayer4() {
-        ArrayList<LobbyPlayer> players = createCorrectList();
-        Lobby lob = new Lobby(players);
+        Lobby lob = createCorrectLobby();
         lob.nextPlayer();
+        assertEquals("pl2", lob.getCurrentPlayer().getName());
         lob.nextPlayer();
+        assertEquals("pl1", lob.getCurrentPlayer().getName());
         lob.nextPlayer();
+        assertEquals("pl2", lob.getCurrentPlayer().getName());
         lob.nextPlayer();
         assertEquals("pl1", lob.getCurrentPlayer().getName());
     }
 
-}*/
+}
