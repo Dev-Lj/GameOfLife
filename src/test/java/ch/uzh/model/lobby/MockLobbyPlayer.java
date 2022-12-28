@@ -36,5 +36,9 @@ public class MockLobbyPlayer implements LobbyPlayer{
     public void increaseAmountOfCells() {
         this.amountOfCells++;
     }
+
+    public void setAmountOfCells(int amountOfCells) {
+        this.amountOfCells = amountOfCells;
+    }
     
 }

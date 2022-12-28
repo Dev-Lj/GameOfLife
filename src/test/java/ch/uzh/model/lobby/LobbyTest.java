@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LobbyTest {
 
@@ -135,6 +137,23 @@ public class LobbyTest {
         assertEquals("pl2", lob.getCurrentPlayer().getName());
         lob.nextPlayer();
         assertEquals("pl1", lob.getCurrentPlayer().getName());
+    }
+
+    @Test
+    public void testCheckForWinner() {
+        MockLobbyPlayer p1 = new MockLobbyPlayer("a", "red");
+        MockLobbyPlayer p2 = new MockLobbyPlayer("b", "blue");
+        Lobby lob = new Lobby(p1, p2);
+        // players still have cells
+        p1.setAmountOfCells(4);
+        p2.setAmountOfCells(4);
+        lob.checkForWinner();
+        assertFalse(lob.hasWinner());
+        // p2 has no alive cells
+        p2.setAmountOfCells(0);
+        lob.checkForWinner();
+        assertTrue(lob.hasWinner());
+        assertEquals(lob.getWinner(), p1);
     }
 
 }
