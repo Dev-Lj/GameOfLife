@@ -173,37 +173,4 @@ public class Grid {
         // assert x >= 0 && x < size && y >= 0 && y < size;
         return grid[x][y];
     }
-
-    // JUST FOR DEBUGGING PURPOSES
-    // public void printGrid(LobbyPlayer[][] grid) {
-    //     for (LobbyPlayer[] gridRow : grid) {
-    //         for (LobbyPlayer player : gridRow) {
-    //             String playerName = "null";
-    //             if (player != null) {
-    //                 playerName = player.getName();
-    //             }
-    //             System.out.print(playerName + "\t");
-    //         }
-    //         System.out.println();
-    //     }
-    //     System.out.println("-------------");
-    // }
-
-    // // JUST FOR DEBUGGING PURPOSES
-    // public static void main(String[] args) throws InvalidCellException {
-    //     LobbyPlayer p1 = new Player();
-    //     p1.setName(" p1 ");
-    //     LobbyPlayer p2 = new Player();
-    //     p2.setName(" p2 ");
-    //     Grid g = new Grid();
-
-    //     g.plantCell(0, 0, p1);
-    //     g.plantCell(0, 1, p1);
-    //     g.plantCell(0, 2, p2);
-    //     g.printGrid();
-    //     g.computeGeneration();
-    //     g.printGrid();
-    //     g.computeGeneration();
-    //     g.printGrid();
-    // }
 }

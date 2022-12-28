@@ -69,23 +69,8 @@ public class Lobby {
         if (uniqueColors != players.size()) {
             throw new IllegalArgumentException("Duplicate colors");
         }
-
-        // for (int i = 0; i < players.size(); i++) {
-        //     for (int j = i + 1; j < players.size(); j++) {
-        //         if (players.get(i).getColor().equals(players.get(j).getColor())) {
-        //             throw new IllegalArgumentException(
-        //                     "Color of player " + (i + 1) + " and player " + (j + 1)
-        //                             + " are the same, please choose different colors");
-        //         } else if (players.get(i).getName().equals(players.get(j).getName())) {
-        //             throw new IllegalArgumentException(
-        //                     "Name of player " + (i + 1) + " and player " + (j + 1)
-        //                             + " are the same, please choose different names");
-        //         }
-        //     }
-        // }
     }
 
-    // TODO there must be a more elegant solution
     public List<LobbyPlayer> getPlayers() {
         return players;
     }
