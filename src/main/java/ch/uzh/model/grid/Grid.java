@@ -6,6 +6,8 @@ import ch.uzh.model.lobby.LobbyPlayer;
 import ch.uzh.model.lobby.Player;
 
 public class Grid {
+    public static final int DEFAULT_SIZE = 20;
+
     private final int size;
     private LobbyPlayer[][] grid;
     private int generation = 0;
