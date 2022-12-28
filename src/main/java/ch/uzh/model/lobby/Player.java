@@ -22,6 +22,7 @@ public class Player implements LobbyPlayer {
                 add("white");
             }
         });
+    public static final String PLAYERCOLOR_TRANSPARENT = "transparent";
 
     public void setName(String name) {
         this.name = name;

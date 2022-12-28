@@ -3,6 +3,7 @@ package ch.uzh.model.grid;
 import java.util.*;
 
 import ch.uzh.model.lobby.LobbyPlayer;
+import ch.uzh.model.lobby.Player;
 
 public class Grid {
     private final int size;
@@ -146,7 +147,7 @@ public class Grid {
         for (int x = 0; x < drawableGrid.length; x++) {
             for (int y = 0; y < drawableGrid.length; y++) {
                 if (!isAlive(x, y)) {
-                    drawableGrid[x][y] = "transparent";
+                    drawableGrid[x][y] = Player.PLAYERCOLOR_TRANSPARENT;
                 } else {
                     drawableGrid[x][y] = grid[x][y].getColor();
                 }
