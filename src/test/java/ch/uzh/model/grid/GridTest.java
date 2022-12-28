@@ -2,6 +2,8 @@ package ch.uzh.model.grid;
 
 import ch.uzh.model.lobby.LobbyPlayer;
 import ch.uzh.model.lobby.MockLobbyPlayer;
+import ch.uzh.model.lobby.Player;
+
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -116,8 +118,30 @@ class GridTest {
     }
 
     @Test
-    void testGetDrawableGrid() {
+    void testGetDrawableGrid() throws InvalidCellException {
+        grid.plantCell(0, 0, p1);
+        grid.plantCell(0, SIZE-1, p1);
+        grid.plantCell(SIZE-1, 0, p2);
+        grid.plantCell(SIZE-1, SIZE-1, p2);
 
+        String o = Player.PLAYERCOLOR_TRANSPARENT;
+        String r = p1.getColor();
+        String b = p2.getColor();
+        String[][] expected = {
+            {r,o,o,r},
+            {o,o,o,o},
+            {o,o,o,o},
+            {b,o,o,b}};
+        assertArrayEquals(expected, grid.getDrawableGrid());
+    }
+
+    @Test
+    void testObservers() {
+        MockGridObserver obs = new MockGridObserver();
+        grid.attachObserver(obs);
+        grid.computeGeneration();
+        assertTrue(obs.wasUpdated());
+        assertEquals(grid, obs.getUpdatedGrid());
     }
 
     @Test
