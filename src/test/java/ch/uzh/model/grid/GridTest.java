@@ -2,26 +2,18 @@ package ch.uzh.model.grid;
 
 import ch.uzh.model.lobby.LobbyPlayer;
 import ch.uzh.model.lobby.MockLobbyPlayer;
-import ch.uzh.model.lobby.Player;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
     private static final int SIZE = 4;
-    Grid grid = new Grid(SIZE);
-    static Player p1 = new Player();
-    static Player p2 = new Player();
-
-    static {
-        p1.setName("p1");
-        p2.setName("p1");
-    }
+    private Grid grid = new Grid(SIZE);
+    private MockLobbyPlayer p1 = new MockLobbyPlayer("p1", "red");
+    private MockLobbyPlayer p2 = new MockLobbyPlayer("p2", "blue");
 
     LobbyPlayer getCell(int x, int y) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method gridMethod = Grid.class.getDeclaredMethod("getCell", int.class, int.class);
@@ -111,22 +103,16 @@ class GridTest {
     @Test
     void testComputeGeneration_fiveSquares() throws InvalidCellException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         int halfLower = (int)grid.getSize()/2;
-        MockLobbyPlayer p = new MockLobbyPlayer("test", "red");
         // pattern for player 1
-        grid.plantCell(0, halfLower, p);
-        grid.plantCell(0, halfLower - 1, p);
-        grid.plantCell(1, halfLower, p);
-        grid.plantCell(1, halfLower - 1, p);
-        grid.plantCell(2, halfLower - 1, p);
-        assertEquals(5, p.getAmountOfCells());
+        grid.plantCell(0, halfLower, p1);
+        grid.plantCell(0, halfLower - 1, p1);
+        grid.plantCell(1, halfLower, p1);
+        grid.plantCell(1, halfLower - 1, p1);
+        grid.plantCell(2, halfLower - 1, p1);
+        assertEquals(5, p1.getAmountOfCells());
 
         grid.computeGeneration();
-        assertEquals(5, p.getAmountOfCells());
-    }
-
-    @Test
-    void testAttachObserver() {
-
+        assertEquals(5, p1.getAmountOfCells());
     }
 
     @Test
