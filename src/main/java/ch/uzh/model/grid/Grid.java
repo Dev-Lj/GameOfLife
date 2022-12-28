@@ -59,7 +59,6 @@ public class Grid {
         LobbyPlayer owner = grid[x][y];
         grid[x][y] = null;
         owner.decreaseAmountOfCells();
-        System.out.println(String.format("%s: %d cells", owner.getName(), owner.getAmountOfCells()));
     }
 
     /**
@@ -70,7 +69,6 @@ public class Grid {
         // assert x >= 0 && x < size && y >= 0 && y < size && grid[x][y] == null;
         grid[x][y] = owner;
         owner.increaseAmountOfCells();
-        System.out.println(String.format("%s: %d cells", owner.getName(), owner.getAmountOfCells()));
     }
 
     /**
