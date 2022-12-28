@@ -3,28 +3,29 @@ package ch.uzh.model.game;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import org.junit.jupiter.api.Test;
 
 import ch.uzh.model.grid.MockGrid;
-import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
+import ch.uzh.model.lobby.MockLobby;
 import ch.uzh.model.lobby.MockLobbyPlayer;
 
 public class GameTest {
     private MockGrid mockGrid;
     private MockLobbyPlayer p1;
     private MockLobbyPlayer p2;
-    private Lobby stubLobby;
+    private MockLobby stubLobby;
     private Game game;
     
     public GameTest() {
         mockGrid = new MockGrid(4);
         p1 = new MockLobbyPlayer("p1", "red");
         p2 = new MockLobbyPlayer("p2", "blue");
-        stubLobby = new Lobby(p1, p2);
+        stubLobby = new MockLobby(p1, p2);
         game = new Game(mockGrid, stubLobby);
     }
 
@@ -119,5 +120,12 @@ public class GameTest {
         notifyObserversNextMove(game);
         assertTrue(obs1.hasReceivedNextMove());
         assertTrue(obs2.hasReceivedNextMove());
+    }
+
+    @Test
+    public void testCheckForWinner() {
+        game.checkForWinner(winner -> fail());
+        stubLobby.setWinner(p1);
+        game.checkForWinner(winner -> assertEquals(p1, winner));
     }
 }
