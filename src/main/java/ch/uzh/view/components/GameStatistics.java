@@ -1,8 +1,5 @@
 package ch.uzh.view.components;
 
-import java.util.function.Consumer;
-
-import ch.uzh.model.grid.GridObserver;
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
 import javafx.scene.control.Label;
