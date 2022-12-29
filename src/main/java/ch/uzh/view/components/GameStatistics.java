@@ -2,10 +2,7 @@ package ch.uzh.view.components;
 
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
-import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
