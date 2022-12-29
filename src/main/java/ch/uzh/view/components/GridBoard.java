@@ -8,17 +8,15 @@ import javafx.scene.shape.Rectangle;
 public class GridBoard extends GridPane{
     
     private final int size;
-    private final CellSelectionStrategy cellSelectionStrategy;
     private Rectangle[][] cells;
 
     public GridBoard(int size, CellSelectionStrategy cellSelectionStrategy) {
         this.size = size;
-        this.cellSelectionStrategy = cellSelectionStrategy;
         this.cells = new Rectangle[size][size];
-        initializeGridBoard();
+        initializeGridBoard(cellSelectionStrategy);
     }
 
-    private void initializeGridBoard() {
+    private void initializeGridBoard(CellSelectionStrategy cellSelectionStrategy) {
         int size = 20;
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
