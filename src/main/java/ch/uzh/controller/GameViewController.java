@@ -15,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class GameViewController implements GameObserver, GridObserver{
     private Game game;
@@ -82,7 +83,7 @@ public class GameViewController implements GameObserver, GridObserver{
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("WinnerView.fxml"));
             Parent p = fxmlLoader.load();
             WinnerViewController wController = fxmlLoader.getController();
-            wController.setWinnerName(winner.getName());
+            wController.setWinnerName(winner);
             stackStatistics.getScene().setRoot(p);
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,6 +103,7 @@ public class GameViewController implements GameObserver, GridObserver{
     @Override
     public void nextPlayerTurn(LobbyPlayer currentPlayer) {
         lblCurrentPlayer.setText(currentPlayer.getName());
+        lblCurrentPlayer.setTextFill(Color.web(currentPlayer.getColor()));
     }
 
     @Override
