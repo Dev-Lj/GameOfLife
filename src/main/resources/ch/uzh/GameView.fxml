@@ -2,41 +2,40 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.uzh.controller.GameViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-pref-width: 600; -fx-pref-height: 400;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.uzh.controller.GameViewController">
    <top>
       <VBox alignment="CENTER" prefHeight="96.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblCurrentPlayer" text="Player">
+            <Label fx:id="lblCurrentPlayer" text="Player" textAlignment="CENTER">
                <font>
                   <Font name="AppleGothic Regular" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="lblMoveDescription" text="Label" textFill="#6c757d" />
+            <Label fx:id="lblMoveDescription" text="Label" textAlignment="CENTER" textFill="#6c757d" />
          </children>
       </VBox>
    </top>
    <center>
-      <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+      <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <children>
-            <AnchorPane fx:id="anchorStatistics" prefHeight="200.0" prefWidth="200.0" />
-            <StackPane fx:id="stackAnchorGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></StackPane>
+            <StackPane fx:id="stackStatistics" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" />
+            <StackPane fx:id="stackAnchorGrid" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="287.0" prefWidth="94.0" />
          </children>
       </HBox>
    </center>
    <bottom>
-      <Label fx:id="lblErrMsg" textFill="RED" BorderPane.alignment="CENTER">
+      <Label fx:id="lblErrMsg" textAlignment="CENTER" textFill="RED" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin></Label>
+            <Insets bottom="5.0" top="5.0" />
+         </BorderPane.margin>
+         <font>
+            <Font name="AppleGothic Regular" size="18.0" />
+         </font></Label>
    </bottom>
 </BorderPane>

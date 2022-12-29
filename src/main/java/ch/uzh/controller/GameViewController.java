@@ -24,7 +24,7 @@ public class GameViewController implements GameObserver, GridObserver{
     @FXML private Label lblMoveDescription;
     @FXML private Label lblErrMsg;
     @FXML private StackPane stackAnchorGrid;
-    @FXML private AnchorPane anchorStatistics;
+    @FXML private StackPane stackStatistics;
 
     private GridBoard gridBoard;
     private GameStatistics statistics;
@@ -75,7 +75,7 @@ public class GameViewController implements GameObserver, GridObserver{
         assert game != null;
         statistics = new GameStatistics();
         statistics.setAlignment(Pos.CENTER);
-        anchorStatistics.getChildren().add(statistics);
+        stackStatistics.getChildren().add(statistics);
     }
 
     public void setWinner(LobbyPlayer winner) {
@@ -84,7 +84,7 @@ public class GameViewController implements GameObserver, GridObserver{
             Parent p = fxmlLoader.load();
             WinnerViewController wController = fxmlLoader.getController();
             wController.setWinnerName(winner.getName());
-            anchorStatistics.getScene().setRoot(p);
+            stackStatistics.getScene().setRoot(p);
         } catch (Exception e) {
             e.printStackTrace();
         }
