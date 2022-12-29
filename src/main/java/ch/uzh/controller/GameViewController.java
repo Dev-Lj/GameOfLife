@@ -87,7 +87,6 @@ public class GameViewController implements GameObserver, GridObserver{
             anchorStatistics.getScene().setRoot(p);
         } catch (Exception e) {
             e.printStackTrace();
-            //errorText.setText(e.getMessage());
         }
     }
 
