@@ -2,6 +2,8 @@ package ch.uzh.controller.components;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import ch.uzh.model.lobby.LobbyPlayer;
 import ch.uzh.model.lobby.Player;
 import ch.uzh.view.components.PlayerConfigFields;
 import javafx.fxml.FXML;
@@ -33,7 +35,7 @@ public class PlayerconfigController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    public Player getLobbyPlayer() throws IllegalArgumentException{
+    public LobbyPlayer getLobbyPlayer() throws IllegalArgumentException{
         try {
             player.validate();
         } catch (IllegalArgumentException e) {
