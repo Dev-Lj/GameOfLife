@@ -19,7 +19,7 @@ public class Lobby {
      * @pre players != null && players.length >= 2 && players are valid
      */
     public Lobby(LobbyPlayer... players) {
-        assert players != null && players.length >= 2;
+        //assert players != null && players.length >= 2;
         this.players = Arrays.asList(players);
         this.winner = Optional.empty();
         nextPlayer();
@@ -52,7 +52,7 @@ public class Lobby {
      * @pre this.hasWinner()
      */
     public LobbyPlayer getWinner() {
-        assert this.hasWinner();
+        //assert this.hasWinner();
         return winner.get();
     }
 

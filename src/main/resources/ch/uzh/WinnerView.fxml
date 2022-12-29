@@ -37,11 +37,16 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button onAction="#restartGame" alignment="CENTER" layoutX="238.0" layoutY="100.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="125.0" style="#D7F5E9: #D7F5E9;" text="Restart Game" textAlignment="CENTER">
+            <Button alignment="CENTER" layoutX="238.0" layoutY="100.0" mnemonicParsing="false" onAction="#restartGame" prefHeight="37.0" prefWidth="125.0" style="#D7F5E9: #D7F5E9;" text="Restart Game" textAlignment="CENTER">
                <font>
                   <Font name="AppleGothic Regular" size="15.0" />
                </font>
             </Button>
+            <Label fx:id="lblErrMsg" alignment="CENTER" layoutX="285.0" layoutY="158.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="AppleGothic Regular" size="15.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </bottom>

@@ -45,7 +45,7 @@ public class PlayerconfigViewController implements Initializable {
     }
 
     private Lobby createLobby() throws IllegalArgumentException{
-         LobbyPlayer[] players = playerInputControllers.stream().map(input->input.getLobbyPlayer()).toArray(size->new LobbyPlayer[size]);
+        LobbyPlayer[] players = playerInputControllers.stream().map(input->input.getLobbyPlayer()).toArray(size->new LobbyPlayer[size]);
         return new Lobby(players);
     }
 

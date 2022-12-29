@@ -13,7 +13,8 @@ import javafx.scene.control.Label;
 
 public class WinnerViewController {
     @FXML private Label lblWinnerName;
-
+    @FXML private Label lblErrMsg;
+    
     public void setWinnerName(String winnerName) {
         lblWinnerName.setText(winnerName);
     }
@@ -27,7 +28,7 @@ public class WinnerViewController {
             rootScene.setRoot(p);
         } catch (Exception e) {
             e.printStackTrace();
-            //errorText.setText(e.getMessage());
+            lblErrMsg.setText(e.getMessage());
         }
 
     }

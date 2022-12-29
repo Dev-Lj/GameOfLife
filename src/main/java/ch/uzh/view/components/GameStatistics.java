@@ -2,10 +2,7 @@ package ch.uzh.view.components;
 
 import ch.uzh.model.lobby.Lobby;
 import ch.uzh.model.lobby.LobbyPlayer;
-import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,7 +18,6 @@ public class GameStatistics extends VBox{
         Label lblPlayerLabel = new Label(String.format("%s:  %d", player.getName(), player.getAmountOfCells()));
         entry.getChildren().addAll(rec, lblPlayerLabel);
         entry.setSpacing(10);
-        //entry.getStylesheets().add(getClass().getResource("subscene.css").toExternalForm());
         return entry;
     }
 
@@ -33,7 +29,6 @@ public class GameStatistics extends VBox{
             getChildren().add(getPlayerStatisticsEntry(player));
         }
         setSpacing(10);
-        //((Labeled) getChildren()).setAlignment(Pos.TOP_CENTER);
         
     }
 }

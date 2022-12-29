@@ -22,7 +22,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     public void killCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
-        // assert x >= 0 && x < size && y >= 0 && y < size;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         if (!isAlive(x, y)) {
             throw new InvalidCellException("Cell is already dead");
         }
@@ -37,7 +37,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     public void plantCell(int x, int y, LobbyPlayer currentPlayer) throws InvalidCellException {
-        // assert x >= 0 && x < size && y >= 0 && y < size;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         if(isAlive(x, y)) {
             throw new InvalidCellException("Cell is already alive");
         }
@@ -49,7 +49,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     private boolean isAlive(int x, int y) {
-        // assert x >= 0 && x < size && y >= 0 && y < size;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         return grid[x][y] != null;
     }
 
@@ -58,7 +58,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid and cell is alive
      */
     private void setDead(LobbyPlayer[][] grid, int x, int y) {
-        // assert x >= 0 && x < size && y >= 0 && y < size && grid[x][y] != null;
+        assert x >= 0 && x < size && y >= 0 && y < size && grid[x][y] != null;
         LobbyPlayer owner = grid[x][y];
         grid[x][y] = null;
         owner.decreaseAmountOfCells();
@@ -69,7 +69,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid and cell is dead
      */
     private void setAlive(LobbyPlayer[][] grid, int x, int y, LobbyPlayer owner) {
-        // assert x >= 0 && x < size && y >= 0 && y < size && grid[x][y] == null;
+        assert x >= 0 && x < size && y >= 0 && y < size && grid[x][y] == null;
         grid[x][y] = owner;
         owner.increaseAmountOfCells();
     }
@@ -78,7 +78,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     private int getNumberOfAliveNeighbours(int x, int y) {
-        // assert x >= 0 && x < size && y >= 0 && y < size;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         int aliveNeighbours = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -94,7 +94,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     private LobbyPlayer getMostNeighbourPlayer(int x, int y) {
-        // assert x >= 0 && x < size && y >= 0 && y < size;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         Map<LobbyPlayer, Integer> neighbourFrequencies = new HashMap<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -170,7 +170,7 @@ public class Grid {
      * @pre coordinates not out of bounds of grid
      * */
     private LobbyPlayer getCell(int x, int y) {
-        // assert x >= 0 && x < size && y >= 0 && y < size;
+        assert x >= 0 && x < size && y >= 0 && y < size;
         return grid[x][y];
     }
 }
