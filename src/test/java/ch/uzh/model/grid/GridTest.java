@@ -58,16 +58,6 @@ class GridTest {
     }
 
     @Test
-    void testPlantCell_outOfBoundsException() throws InvalidCellException {
-        try {
-            grid.plantCell(SIZE, SIZE, p1);
-            fail("No ArrayIndexOutOfBoundsException thrown");
-        } catch(ArrayIndexOutOfBoundsException e) {
-            // all good here
-        }
-    }
-
-    @Test
     void testPlantCell_invalidCellException() {
         try {
             grid.plantCell(1, 1, p1);
